@@ -13,6 +13,10 @@
   /* Font families */
   --font-family-primary: var(--primaryfont);
   --font-family-secondary: var(--secondaryfont);
+
+  /* Custom Easing Functions for Tailwind CSS v4 */
+  --ease-custom-1: cubic-bezier(0.5, 0.85, 0.25, 1.1);
+  --ease-custom-2: cubic-bezier(0.5, 0.85, 0.25, 1.8);
 }
 
 @utility font-primary {
