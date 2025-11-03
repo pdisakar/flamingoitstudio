@@ -4,6 +4,13 @@ import logo from '../../public/logo.svg';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
+const mobileMenuItems = [
+  { title: 'Services', href: '#' },
+  { title: 'Who We Are', href: '#' },
+  { title: 'Our Works', href: '#' },
+  { title: 'Blog', href: '#' },
+];
+
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [animateCloseBtn, setAnimateCloseBtn] = useState(false);
@@ -34,18 +41,15 @@ const Header = () => {
         </div>
         <nav>
           <ul className="flex items-center [&>li]:px-9 text-2xl font-medium">
-            <li>
-              <Link href="#">Services</Link>
-            </li>
-            <li>
-              <Link href="#">Who We Are</Link>
-            </li>
-            <li>
-              <Link href="#">Our Works</Link>
-            </li>
-            <li>
-              <Link href="#">Blog</Link>
-            </li>
+            {mobileMenuItems.map((item, index) => (
+              <li key={index}>
+                <Link
+                  href={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}>
+                  {item.title}
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
         <div className="contact-us-btn ">
@@ -165,51 +169,15 @@ const Header = () => {
           </button>
 
           <ul className="flex flex-col items-center text-4xl font-medium space-y-8">
-            <li>
-              <Link
-                href="#"
-                onClick={() => setIsMobileMenuOpen(false)}>
-                Services
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="#"
-                onClick={() => setIsMobileMenuOpen(false)}>
-                Who We Are
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="#"
-                onClick={() => setIsMobileMenuOpen(false)}>
-                Our Works
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="#"
-                onClick={() => setIsMobileMenuOpen(false)}>
-                Blog
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="#"
-                className="group flex items-center gap-5 bg-primary rounded-full p-1.5 pl-8 text-2xl"
-                onClick={() => setIsMobileMenuOpen(false)}>
-                Let's Start
-                <div className="action-btn h-16 w-16 bg-[#993A0A] flex items-center justify-center rounded-full">
-                  <svg
-                    width={18}
-                    height={18}
-                    className="transform transition-transform duration-300 ease-in-out group-hover:-rotate-45"
-                    fill="currentColor">
-                    <use xlinkHref="/icons.svg#arrow45" />
-                  </svg>
-                </div>
-              </Link>
-            </li>
+            {mobileMenuItems.map((item, index) => (
+              <li key={index}>
+                <Link
+                  href={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}>
+                  {item.title}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       )}
