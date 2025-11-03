@@ -13,7 +13,6 @@
   /* Font families */
   --font-family-primary: var(--primaryfont);
   --font-family-secondary: var(--secondaryfont);
-  --font-family-third: var(--thirdfont);
 }
 
 @utility font-primary {
