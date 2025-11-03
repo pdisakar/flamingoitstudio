@@ -1,0 +1,42 @@
+@import 'tailwindcss';
+
+/* All Fonts and colors */
+@theme {
+  /* Colors */
+  --color-primary: #e46729;
+  --color-white: #faf9f6;
+  --color-black: #0c0c0c;
+  --color-border: #d7d6d3;
+  --color-body-bg: #1f0a00;
+  --color-body: #faf9f6;
+
+  /* Font families */
+  --font-family-primary: var(--primaryfont);
+  --font-family-secondary: var(--secondaryfont);
+  --font-family-third: var(--thirdfont);
+}
+
+@utility font-primary {
+  font-family: var(--primaryfont);
+}
+
+@utility font-secondary {
+  font-family: var(--secondaryfont);
+}
+
+/* Size of the Container */
+@utility container {
+  @apply mx-auto px-3.75 max-w-[1650px];
+}
+
+/* Size of the Common Box */
+@utility common-box {
+  @apply py-36;
+}
+
+/* Body Style */
+@layer base {
+  body {
+    @apply text-body bg-body-bg font-primary leading-[1.6];
+  }
+}
