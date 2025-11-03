@@ -1,3 +1,22 @@
+const techWeUse = [
+  {
+    name: 'React',
+    icon: 'react',
+  },
+  {
+    name: 'Next.js',
+    icon: 'next',
+  },
+  {
+    name: 'Laravel',
+    icon: 'laravel',
+  },
+  {
+    name: 'HTML',
+    icon: 'html',
+  },
+];
+
 const Herosection = () => {
   return (
     <section className="common-box">
@@ -19,7 +38,28 @@ const Herosection = () => {
             </p>
           </div>
         </div>
-        <div className="hero-title">Unmatched Web Design</div>
+        <h1 className="hero-title">
+          Distinctive <br /> Web <span className="text-primary"> Design</span>
+        </h1>
+        <div className="quick-tech-we-use">
+          <span className=" block max-w-[300px] text-4xl leading-[1.3] text-body/80">
+            Developing the Website for Tomorrow
+          </span>
+          <ul className="tech-container">
+            {techWeUse.map(tech => (
+              <li
+                key={tech.name}
+                className="inline-block">
+                <svg
+                  width={40}
+                  height={40}
+                  fill="currentColor">
+                  <use xlinkHref={`/icons.svg#${tech.icon}`} />
+                </svg>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

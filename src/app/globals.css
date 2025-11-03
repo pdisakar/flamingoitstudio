@@ -8,7 +8,7 @@
   --color-black: #0c0c0c;
   --color-border: #d7d6d3;
   --color-body-bg: #1f0a00;
-  --color-body: #faf9f6;
+  --color-body: #ffffff;
 
   /* Font families */
   --font-family-primary: var(--primaryfont);
@@ -33,7 +33,7 @@
 }
 
 @utility common-box {
-  @apply py-16 sm:py-20 md:py-28 lg:py-36 xl:py-40 2xl:py-48;
+  @apply py-16 sm:py-20 2xl:py-24;
 }
 
 /* Body Style */
@@ -41,4 +41,9 @@
   body {
     @apply text-body bg-body-bg font-primary leading-[1.6];
   }
+}
+
+/* Hero section h1 title */
+h1.hero-title {
+  @apply text-[200px] leading-[1.1] font-semibold font-secondary;
 }
