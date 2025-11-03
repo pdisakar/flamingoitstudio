@@ -1,0 +1,20 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #c8402a;
+  --color-pagebg: #fffbfa;
+  --color-navbar: #032330;
+  --color-heading: #01151e;
+  --color-graytext: #6c757d;
+  --color-textcolor: #454545;
+  --color-footertext: #d6d6d6;
+
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1230px;
+}
+
+@utility container {
+  @apply mx-auto px-3.75 max-w-[1650px];
+}
