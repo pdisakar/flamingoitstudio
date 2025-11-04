@@ -19,8 +19,8 @@
   --ease-custom-2: cubic-bezier(0.5, 0.85, 0.25, 1.8);
 
   /* Background images */
-  --background-image-hero-bg-2: url('/hero-bg-2.svg');
-  --background-image-hero-bg: url('/hero-bg.svg');
+  --background-image-hero-bg-2: url('/backgrounds/hero-bg-2.svg');
+  --background-image-hero-bg: url('/backgrounds/hero-bg.svg');
 }
 
 @utility font-primary {
@@ -37,7 +37,7 @@
 }
 
 @utility common-box {
-  @apply py-16 sm:py-20 2xl:py-24;
+  @apply py-16 sm:py-20 2xl:py-32;
 }
 
 /* Body Style */

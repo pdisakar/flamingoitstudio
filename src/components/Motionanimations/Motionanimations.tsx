@@ -65,3 +65,40 @@ export const HeroTechItem = ({ name, icon }: HeroTechItemProps) => {
   );
 };
 
+// Owner words line-by-line reveal animation
+interface OwnerWordsLinesProps {
+  lines: string[];
+  className?: string;
+}
+
+const ownerWordLineVariants = {
+  hidden: { opacity: 0 },
+  visible: (i: number) => ({
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.7,
+      delay: i * 0.15,
+      ease: [0.25, 1, 0.5, 1] as [number, number, number, number],
+    },
+  }),
+};
+
+export const OwnerWordsLines = ({ lines, className }: OwnerWordsLinesProps) => {
+  return (
+    <div className={className ?? ''}>
+      {lines.map((text, i) => (
+        <motion.div
+          key={i}
+          custom={i}
+          variants={ownerWordLineVariants}
+          initial="hidden"
+          viewport={{ once: false, margin: '-15% 0px -15% 0px' }}
+          className="opacity-40 transition-opacity duration-500 will-change-auto"
+          whileInView={{ opacity: 1 }}>
+          {text}
+        </motion.div>
+      ))}
+    </div>
+  );
+};
