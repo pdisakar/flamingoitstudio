@@ -1,6 +1,8 @@
-'use client';
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import {
+  OurServicesProvider,
+  OurServicesImage,
+  OurServicesFaqs,
+} from '../Motionanimations/Motionanimations';
 
 const images = [
   { id: 1, title: 'branding' },
@@ -51,80 +53,28 @@ const faqs = [
 ];
 
 const Ourservices = () => {
-  const [activeId, setActiveId] = useState<number>(1);
-
-  const toggle = (id: number) => {
-    setActiveId(id);
-  };
-
-  const currentImage = images.find(img => img.id === activeId) || images[0];
-
   return (
     <section className="common-box pt-0">
       <div className="container">
         <div className="home-title max-w-[895.59px]">
           <h2>Explore Our Services</h2>
         </div>
-
-        <div className="our-service-container grid gap-10 md:grid-cols-2 items-start">
-          <div className="image-section flex flex-col items-center justify-center">
-            <span className="block text-xl md:text-2xl lg:text-[35px] leading-[1.4]  md:mb-6">
-              Transform your brand with our cutting-edge web development
-              solutions and seamless digital experiences.
-            </span>
-
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentImage.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.2 }}
-                className="w-[320px] h-[320px] md:w-[380px] md:h-[380px] hidden md:block">
-                <svg
-                  width="100%"
-                  height="100%"
-                  fill="currentColor">
-                  <use xlinkHref={`/icons.svg#${currentImage.title}`} />
-                </svg>
-              </motion.div>
-            </AnimatePresence>
+        <OurServicesProvider
+          images={images}
+          faqs={faqs}>
+          <div className="our-service-container grid gap-10 md:grid-cols-2 items-start">
+            <div className="image-section flex flex-col items-center justify-center">
+              <span className="block text-xl md:text-2xl lg:text-[35px] leading-[1.4]  md:mb-6">
+                Transform your brand with our cutting-edge web development
+                solutions and seamless digital experiences.
+              </span>
+              <OurServicesImage />
+            </div>
+            <div className="faqs-section">
+              <OurServicesFaqs />
+            </div>
           </div>
-
-          <div className="faqs-section">
-            {faqs.map(({ id, question, answer }) => (
-              <div
-                key={id}
-                className="group cursor-pointer pb-8">
-                <div
-                  className="flex justify-between items-center"
-                  onClick={() => toggle(id)}>
-                  <span
-                    className={`text-lg font-medium transition-colors text-[28px] lg:text-[56px] leading-[100%] ${
-                      activeId === id ? 'text-primary' : 'text-body/90'
-                    }`}>
-                    {question}
-                  </span>
-                </div>
-
-                <AnimatePresence>
-                  {activeId === id && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.35 }}
-                      className="overflow-hidden">
-                      <p className="mt-3 opacity-90 text-xl border-b border-white pb-4 leading-[1.6]">
-                        {answer}
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))}
-          </div>
-        </div>
+        </OurServicesProvider>
       </div>
     </section>
   );

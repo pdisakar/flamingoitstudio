@@ -1,7 +1,13 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import {
+  useEffect,
+  useState,
+  createContext,
+  useContext,
+  ReactNode,
+} from 'react';
 
 // Hero section background animations
 export const HeroLeftBackground = () => {
@@ -165,5 +171,117 @@ export const ClientsRotator = ({ clients }: ClientsRotatorProps) => {
         </li>
       ))}
     </ul>
+  );
+};
+
+interface OurServiceImageItem {
+  id: number;
+  title: string;
+}
+interface OurServiceFaqItem {
+  id: number;
+  question: string;
+  answer: string;
+}
+
+interface OurServicesClientProps {
+  images: OurServiceImageItem[];
+  faqs: OurServiceFaqItem[];
+}
+
+interface OurServicesContextValue {
+  images: OurServiceImageItem[];
+  faqs: OurServiceFaqItem[];
+  activeId: number;
+  setActiveId: (id: number) => void;
+}
+
+const OurServicesContext = createContext<OurServicesContextValue | null>(null);
+
+interface OurServicesProviderProps extends OurServicesClientProps {
+  children: ReactNode;
+}
+
+export const OurServicesProvider = ({
+  images,
+  faqs,
+  children,
+}: OurServicesProviderProps) => {
+  const [activeId, setActiveId] = useState<number>(1);
+  return (
+    <OurServicesContext.Provider
+      value={{ images, faqs, activeId, setActiveId }}>
+      {children}
+    </OurServicesContext.Provider>
+  );
+};
+
+export const OurServicesImage = () => {
+  const ctx = useContext(OurServicesContext);
+  if (!ctx) return null;
+  const { images, activeId } = ctx;
+  const currentImage = images.find(img => img.id === activeId) || images[0];
+
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={currentImage.id}
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.9 }}
+        transition={{ duration: 0.2 }}
+        className="w-80 h-80 md:w-[380px] md:h-[380px] hidden md:block">
+        <svg
+          width="100%"
+          height="100%"
+          fill="currentColor">
+          <use xlinkHref={`/icons.svg#${currentImage.title}`} />
+        </svg>
+      </motion.div>
+    </AnimatePresence>
+  );
+};
+
+export const OurServicesFaqs = () => {
+  const ctx = useContext(OurServicesContext);
+  if (!ctx) return null;
+  const { faqs, activeId, setActiveId } = ctx;
+
+  const toggle = (id: number) => setActiveId(id);
+
+  return (
+    <>
+      {faqs.map(({ id, question, answer }) => (
+        <div
+          key={id}
+          className="group cursor-pointer pb-8">
+          <div
+            className="flex justify-between items-center"
+            onClick={() => toggle(id)}>
+            <span
+              className={`text-lg font-medium transition-colors text-[28px] lg:text-[56px] leading-[100%] ${
+                activeId === id ? 'text-primary' : 'text-body/90'
+              }`}>
+              {question}
+            </span>
+          </div>
+
+          <AnimatePresence>
+            {activeId === id && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.35 }}
+                className="overflow-hidden">
+                <p className="mt-3 opacity-90 text-xl border-b border-white pb-4 leading-[1.6]">
+                  {answer}
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      ))}
+    </>
   );
 };
