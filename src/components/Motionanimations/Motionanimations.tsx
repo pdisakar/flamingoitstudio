@@ -97,7 +97,7 @@ export const OwnerWordsLines = ({ lines, className }: OwnerWordsLinesProps) => {
           variants={ownerWordLineVariants}
           whileInView={{
             opacity: 1,
-            transition: { duration: 2 }, // ✅ 2 sec fade-in applied here
+            transition: { duration: 1 },
           }}
           viewport={{ once: false, margin: '-15% 0px -15% 0px' }}
           className="opacity-40 will-change-auto">
@@ -144,7 +144,7 @@ export const ClientsRotator = ({ clients }: ClientsRotatorProps) => {
       {displayed.map((client, i) => (
         <li
           key={`${client.id}-${i}`}
-          className="relative h-[80px] w-[210px] overflow-hidden flex items-center justify-center">
+          className="relative h-20 w-[210px] overflow-hidden flex items-center justify-center">
           <AnimatePresence mode="popLayout">
             <motion.div
               key={client.id}

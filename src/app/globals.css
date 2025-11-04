@@ -52,6 +52,14 @@ h1.hero-title {
   @apply text-[clamp(60px,10vw,200px)] leading-[1.1] font-semibold font-secondary;
 }
 
+/* Home page h2 tags */
+.home-title {
+  @apply mb-8;
+  h2 {
+    @apply text-[clamp(50px,10vw,164px)] leading-[1.1] font-semibold font-secondary;
+  }
+}
+
 /* custom-scroller-y */
 .custom-scroller-y {
   @apply pb-2;
