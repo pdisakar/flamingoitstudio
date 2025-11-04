@@ -22,8 +22,8 @@ const techWeUse = [
 
 const Herosection = () => {
   return (
-    <section className="common-box">
-      <div className="container">
+    <section className="common-box relative before:absolute before:content-[] before:h-[500px] before:w-[900px] before:left-0 before:bottom-15 before:bg-hero-bg-2 before:bg-no-repeat before:bg-contain before:-z-1 after:absolute after:content-[] after:h-[400px] after:w-[200px] after:-right-5 after:top-0 after:bg-hero-bg after:bg-no-repeat after:bg-contain after:-z-1">
+      <div className="container ">
         <div className="quick-service flex items-center gap-12">
           <span className="uppercase text-xl">
             Your Vision,

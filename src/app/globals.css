@@ -17,6 +17,10 @@
   /* Custom Easing Functions for Tailwind CSS v4 */
   --ease-custom-1: cubic-bezier(0.5, 0.85, 0.25, 1.1);
   --ease-custom-2: cubic-bezier(0.5, 0.85, 0.25, 1.8);
+
+  /* Background images */
+  --background-image-hero-bg-2: url('/hero-bg-2.svg');
+  --background-image-hero-bg: url('/hero-bg.svg');
 }
 
 @utility font-primary {
