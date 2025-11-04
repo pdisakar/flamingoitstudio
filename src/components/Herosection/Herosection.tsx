@@ -2,38 +2,41 @@
 import { motion } from 'framer-motion';
 
 const techWeUse = [
-  {
-    name: 'React',
-    icon: 'react',
-  },
-  {
-    name: 'Next.js',
-    icon: 'next',
-  },
-  {
-    name: 'Laravel',
-    icon: 'laravel',
-  },
-  {
-    name: 'HTML',
-    icon: 'html',
-  },
+  { name: 'React', icon: 'react' },
+  { name: 'Next.js', icon: 'next' },
+  { name: 'Laravel', icon: 'laravel' },
+  { name: 'HTML', icon: 'html' },
 ];
 
 const Herosection = () => {
   return (
-    <section className="common-box relative before:absolute before:content-[] before:h-[500px] before:w-[900px] before:left-0 before:bottom-15 before:bg-hero-bg-2 before:bg-no-repeat before:bg-contain before:-z-1 after:absolute after:content-[] after:h-[400px] after:w-[200px] after:-right-5 after:top-0 after:bg-hero-bg after:bg-no-repeat after:bg-contain after:-z-1">
-      <div className="container ">
+    <section className="common-box relative overflow-hidden">
+      <motion.div
+        className="absolute h-[500px] w-[900px] left-0 bottom-[50px] bg-hero-bg-2 bg-no-repeat bg-contain -z-10"
+        initial={{ x: '-100%', opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ ease: 'easeOut', duration: 1 }}
+      />
+
+      <motion.div
+        className="absolute h-[400px] w-[200px] -right-5 top-0 bg-hero-bg bg-no-repeat bg-contain -z-10"
+        initial={{ x: '100%', opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ ease: 'easeOut', duration: 1 }}
+      />
+
+      <div className="container">
         <div className="quick-service flex items-center gap-12">
           <span className="uppercase text-xl">
             Your Vision,
             <br /> Our Expertise
           </span>
+
           <div className="quick-service-body [&>p]:px-6 [&>p]:py-2.5 flex leading-[100%] text-[15px]">
             <p className="border-primary bg-primary/20 border rounded-full">
               UI/UX
             </p>
-            <p className=" border border-white rounded-full bg-white/10 relative">
+            <p className="border border-white rounded-full bg-white/10 relative">
               <span className="h-7 w-7 bg-primary border border-white rounded-full flex items-center justify-center absolute top-1/2 -left-3.5 -translate-y-1/2 leading-[100%]">
                 &
               </span>
@@ -41,13 +44,16 @@ const Herosection = () => {
             </p>
           </div>
         </div>
+
         <h1 className="hero-title">
           Distinctive <br /> Web <span className="text-primary"> Design</span>
         </h1>
+
         <div className="quick-tech-we-use flex items-center gap-14">
-          <span className=" block max-w-[300px] text-4xl leading-[1.3] text-body/80">
+          <span className="block max-w-[300px] text-4xl leading-[1.3] text-body/80">
             Developing the Website for Tomorrow
           </span>
+
           <ul className="tech-container flex items-center">
             {techWeUse.map(tech => (
               <motion.li
@@ -55,9 +61,7 @@ const Herosection = () => {
                 className="tech-item relative w-[70px] h-[70px] flex items-center justify-center bg-primary rounded-full border-2 border-white -ml-2.5"
                 whileHover="hover"
                 initial="rest"
-                variants={{
-                  rest: {},
-                }}>
+                variants={{ rest: {} }}>
                 <motion.svg
                   width={36}
                   height={36}
