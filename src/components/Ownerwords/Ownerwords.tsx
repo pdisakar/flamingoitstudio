@@ -18,7 +18,7 @@ const lines = [
 
 export default function Ownerwords() {
   return (
-    <div className="common-box py-12">
+    <div className="common-box pb-0">
       <div className="container grid grid-cols-4 gap-6">
         <div className="founded-container col-span-4 md:col-span-1">
           <ul className="flex items-center [&>li:not(:first-child)]:-ml-3">

@@ -1,5 +1,7 @@
 'use client';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 // Hero section background animations
 export const HeroLeftBackground = () => {
@@ -100,5 +102,65 @@ export const OwnerWordsLines = ({ lines, className }: OwnerWordsLinesProps) => {
         </motion.div>
       ))}
     </div>
+  );
+};
+
+// Our Clients animated rotator
+interface ClientItem {
+  id: number | string;
+  img: any;
+  alt: string;
+}
+
+interface ClientsRotatorProps {
+  clients: ClientItem[];
+}
+
+export const ClientsRotator = ({ clients }: ClientsRotatorProps) => {
+  const [displayed, setDisplayed] = useState<ClientItem[]>(clients.slice(0, 4));
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex(prev => (prev + 1) % clients.length);
+
+      setDisplayed(prev => {
+        const updated = [...prev];
+        const nextItemIndex = (currentIndex + 4) % clients.length;
+        const replaceIndex = currentIndex % 4;
+        updated[replaceIndex] = clients[nextItemIndex];
+        return updated;
+      });
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [clients, currentIndex]);
+
+  return (
+    <ul className="flex items-center justify-between gap-10 min-w-max">
+      {displayed.map((client, i) => (
+        <li
+          key={`${client.id}-${i}`}
+          className="relative h-[80px] w-[210px] overflow-hidden flex items-center justify-center">
+          <AnimatePresence mode="popLayout">
+            <motion.div
+              key={client.id}
+              initial={{ y: 80, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -80, opacity: 0 }}
+              transition={{ duration: 0.6, ease: 'easeOut' }}
+              className="absolute inset-0 flex items-center justify-center">
+              <Image
+                src={client.img}
+                alt={client.alt}
+                fill
+                className="object-contain"
+                sizes="(max-width:768px) 140px, 210px"
+              />
+            </motion.div>
+          </AnimatePresence>
+        </li>
+      ))}
+    </ul>
   );
 };

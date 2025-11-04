@@ -1,4 +1,5 @@
 import Herosection from '@/components/Herosection/Herosection';
+import Ourclients from '@/components/Ourclients/Ourclients';
 import Ownerwords from '@/components/Ownerwords/Ownerwords';
 
 export default function Home() {
@@ -6,6 +7,7 @@ export default function Home() {
     <main>
       <Herosection />
       <Ownerwords />
+      <Ourclients />
     </main>
   );
 }
