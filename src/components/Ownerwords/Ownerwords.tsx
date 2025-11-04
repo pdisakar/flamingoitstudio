@@ -19,8 +19,8 @@ const lines = [
 export default function Ownerwords() {
   return (
     <div className="common-box py-12">
-      <div className="container flex gap-40 items-start">
-        <div className="founded-container">
+      <div className="container grid grid-cols-4 gap-6">
+        <div className="founded-container col-span-4 md:col-span-1">
           <ul className="flex items-center [&>li:not(:first-child)]:-ml-3">
             {owners.map(owner => (
               <li key={owner.id}>
@@ -29,21 +29,20 @@ export default function Ownerwords() {
                   height={90}
                   width={90}
                   alt={owner.name}
-                  className="rounded-full ring-4 ring-white/10 object-cover"
+                  className="rounded-full outline-2 outline-white"
                 />
               </li>
             ))}
           </ul>
 
-          <div className="founded-title [&>span]:block leading-[1.3] text-2xl uppercase [&>span:last-child]:font-bold mt-8">
+          <div className="founded-title [&>span]:block leading-[1.3] text-xl md:text-2xl uppercase [&>span:last-child]:font-bold mt-8">
             <span>Founders of</span>
             <span>Flamingo It Studio</span>
           </div>
         </div>
-
         <OwnerWordsLines
           lines={lines}
-          className="founder-words text-[54px] leading-[1.3] flex flex-col gap-2"
+          className="founder-words text-[clamp(20px,5vw,54px)] leading-[1.3] flex flex-col gap-2 col-span-4 md:col-span-3"
         />
       </div>
     </div>

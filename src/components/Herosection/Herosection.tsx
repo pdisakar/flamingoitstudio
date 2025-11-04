@@ -17,7 +17,7 @@ const Herosection = () => {
       <HeroLeftBackground />
       <HeroRightBackground />
       <div className="container">
-        <div className="quick-service flex items-center gap-12">
+        <div className="quick-service flex flex-wrap items-center gap-2.5 md:gap-6 lg:gap-12">
           <span className="uppercase text-xl">
             Your Vision,
             <br /> Our Expertise
@@ -36,16 +36,16 @@ const Herosection = () => {
           </div>
         </div>
 
-        <h1 className="hero-title">
+        <h1 className="hero-title my-7">
           Distinctive <br /> Web <span className="text-primary"> Design</span>
         </h1>
 
-        <div className="quick-tech-we-use flex items-center gap-14">
-          <span className="block max-w-[300px] text-4xl leading-[1.3] text-body/80">
+        <div className="quick-tech-we-use flex items-center flex-wrap gap-3.5 md:gap-7 lg:gap-14">
+          <span className="block max-w-[300px] text-xl md:text-2xl lg:text-4xl leading-[1.3] text-body/80">
             Developing the Website for Tomorrow
           </span>
 
-          <ul className="tech-container flex items-center">
+          <ul className="tech-container flex items-center [&>li:not(:first-child)]:-ml-3">
             {techWeUse.map(tech => (
               <HeroTechItem
                 key={tech.name}

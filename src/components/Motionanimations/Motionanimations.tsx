@@ -34,7 +34,7 @@ export const HeroTechItem = ({ name, icon }: HeroTechItemProps) => {
   return (
     <motion.li
       key={name}
-      className="tech-item relative w-[70px] h-[70px] flex items-center justify-center bg-primary rounded-full border-2 border-white -ml-2.5"
+      className="tech-item relative w-[70px] h-[70px] flex items-center justify-center bg-primary rounded-full border-2 border-white"
       whileHover="hover"
       initial="rest"
       variants={{ rest: {} }}>

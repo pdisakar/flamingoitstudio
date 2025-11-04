@@ -37,7 +37,7 @@
 }
 
 @utility common-box {
-  @apply py-16 sm:py-20 2xl:py-32;
+  @apply py-16 sm:py-20 2xl:py-24;
 }
 
 /* Body Style */
@@ -49,5 +49,5 @@
 
 /* Hero section h1 title */
 h1.hero-title {
-  @apply text-[200px] leading-[1.1] font-semibold font-secondary;
+  @apply text-[clamp(45px,10vw,200px)] leading-[1.1] font-semibold font-secondary;
 }
