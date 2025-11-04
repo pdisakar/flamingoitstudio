@@ -1,5 +1,8 @@
-'use client';
-import { motion } from 'framer-motion';
+import {
+  HeroLeftBackground,
+  HeroRightBackground,
+  HeroTechItem,
+} from '../Motionanimations/Motionanimations';
 
 const techWeUse = [
   { name: 'React', icon: 'react' },
@@ -11,20 +14,8 @@ const techWeUse = [
 const Herosection = () => {
   return (
     <section className="common-box relative overflow-hidden">
-      <motion.div
-        className="absolute h-[500px] w-[900px] left-0 bottom-[50px] bg-hero-bg-2 bg-no-repeat bg-contain -z-10"
-        initial={{ x: '-100%', opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ ease: 'easeOut', duration: 1 }}
-      />
-
-      <motion.div
-        className="absolute h-[400px] w-[200px] -right-5 top-0 bg-hero-bg bg-no-repeat bg-contain -z-10"
-        initial={{ x: '100%', opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ ease: 'easeOut', duration: 1 }}
-      />
-
+      <HeroLeftBackground />
+      <HeroRightBackground />
       <div className="container">
         <div className="quick-service flex items-center gap-12">
           <span className="uppercase text-xl">
@@ -56,36 +47,11 @@ const Herosection = () => {
 
           <ul className="tech-container flex items-center">
             {techWeUse.map(tech => (
-              <motion.li
+              <HeroTechItem
                 key={tech.name}
-                className="tech-item relative w-[70px] h-[70px] flex items-center justify-center bg-primary rounded-full border-2 border-white -ml-2.5"
-                whileHover="hover"
-                initial="rest"
-                variants={{ rest: {} }}>
-                <motion.svg
-                  width={36}
-                  height={36}
-                  fill="currentColor"
-                  className="tech-icon"
-                  variants={{
-                    rest: { scale: 1 },
-                    hover: { scale: 1.1 },
-                  }}
-                  transition={{ duration: 0.3 }}>
-                  <use xlinkHref={`/icons.svg#${tech.icon}`} />
-                </motion.svg>
-
-                <motion.span
-                  className="tech-name absolute whitespace-nowrap px-2 py-1 rounded-md"
-                  variants={{
-                    rest: { opacity: 0, y: 10, pointerEvents: 'none' },
-                    hover: { opacity: 1, y: 0, pointerEvents: 'auto' },
-                  }}
-                  transition={{ duration: 0.3 }}
-                  style={{ top: '100%' }}>
-                  {tech.name}
-                </motion.span>
-              </motion.li>
+                name={tech.name}
+                icon={tech.icon}
+              />
             ))}
           </ul>
         </div>
