@@ -79,7 +79,7 @@ const ownerWordLineVariants = {
     opacity: 1,
     x: 0,
     transition: {
-      duration: 0.7,
+      duration: 0.8,
       delay: i * 0.15,
       ease: [0.25, 1, 0.5, 1] as [number, number, number, number],
     },
@@ -93,11 +93,14 @@ export const OwnerWordsLines = ({ lines, className }: OwnerWordsLinesProps) => {
         <motion.div
           key={i}
           custom={i}
-          variants={ownerWordLineVariants}
           initial="hidden"
+          variants={ownerWordLineVariants}
+          whileInView={{
+            opacity: 1,
+            transition: { duration: 2 }, // ✅ 2 sec fade-in applied here
+          }}
           viewport={{ once: false, margin: '-15% 0px -15% 0px' }}
-          className="opacity-40 transition-opacity duration-500 will-change-auto"
-          whileInView={{ opacity: 1 }}>
+          className="opacity-40 will-change-auto">
           {text}
         </motion.div>
       ))}

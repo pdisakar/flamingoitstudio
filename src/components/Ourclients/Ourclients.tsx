@@ -10,14 +10,14 @@ import client7 from '../../../public/clients/client3.png';
 import client8 from '../../../public/clients/client1.svg';
 
 const clients = [
-  { id: 1, img: client1, alt: 'Client 1' },
   { id: 2, img: client2, alt: 'Client 2' },
-  { id: 3, img: client3, alt: 'Client 3' },
+  { id: 1, img: client1, alt: 'Client 1' },
   { id: 4, img: client4, alt: 'Client 4' },
-  { id: 5, img: client5, alt: 'Client 5' },
+  { id: 3, img: client3, alt: 'Client 3' },
   { id: 6, img: client6, alt: 'Client 6' },
-  { id: 7, img: client7, alt: 'Client 6' },
+  { id: 5, img: client5, alt: 'Client 5' },
   { id: 8, img: client8, alt: 'Client 6' },
+  { id: 7, img: client7, alt: 'Client 6' },
 ];
 
 const OurClients = () => {
