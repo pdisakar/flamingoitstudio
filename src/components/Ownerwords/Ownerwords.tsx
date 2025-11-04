@@ -23,13 +23,14 @@ export default function Ownerwords() {
         <div className="founded-container col-span-4 md:col-span-1">
           <ul className="flex items-center [&>li:not(:first-child)]:-ml-3">
             {owners.map(owner => (
-              <li key={owner.id}>
+              <li
+                key={owner.id}
+                className="relative h-[60px] w-[60px] md:h-[90px] md:w-[90px]">
                 <Image
                   src={owner.img}
-                  height={90}
-                  width={90}
                   alt={owner.name}
-                  className="rounded-full outline-2 outline-white"
+                  fill
+                  className="rounded-full object-cover outline-2 outline-white"
                 />
               </li>
             ))}
@@ -42,7 +43,7 @@ export default function Ownerwords() {
         </div>
         <OwnerWordsLines
           lines={lines}
-          className="founder-words text-[clamp(20px,5vw,54px)] leading-[1.3] flex flex-col gap-2 col-span-4 md:col-span-3"
+          className="founder-words text-[clamp(32px,5vw,54px)] leading-[1.3] flex flex-col gap-2 col-span-4 md:col-span-3"
         />
       </div>
     </div>
