@@ -1,6 +1,5 @@
 'use client';
 import { useRef, useState, useEffect } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import {
   ProjectAnalysisDesktopImage,
@@ -58,7 +57,6 @@ const Projectanalysis = () => {
   return (
     <section className="common-box pt-0 relative">
       <div className="container">
-        {/* ✅ Title */}
         <div className="home-title text-center mb-14">
           <h2>In Depth Analysis of Our Best Works</h2>
           <span>
@@ -67,8 +65,8 @@ const Projectanalysis = () => {
           </span>
         </div>
 
-        {/* ✅ Desktop Layout */}
-        <div className="hidden md:grid grid-cols-2 md:gap-6 lg:gap-12 min-h-[100vh]">
+        {/* Desktop Layout */}
+        <div className="hidden md:grid grid-cols-2 md:gap-6 lg:gap-12 min-h-screen mt-20">
           <div className="sticky top-20 h-[550px] lg:h-[800px] flex items-start">
             <ProjectAnalysisDesktopImage
               key={activeImage}
@@ -115,7 +113,7 @@ const Projectanalysis = () => {
           </div>
         </div>
 
-        {/* ✅ Mobile Layout */}
+        {/* Mobile Layout */}
         <div className="block md:hidden space-y-20 mt-10">
           {casees.map(item => (
             <div key={item.id}>

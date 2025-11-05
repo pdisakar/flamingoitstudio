@@ -317,6 +317,47 @@ export const ProjectAnalysisDesktopImage = ({
   );
 };
 
+// Our Process list item wrapper (centralizes framer-motion usage)
+interface OurProcessItemProps {
+  index: number;
+  children: ReactNode;
+}
+
+const ourProcessFadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
+
+export const OurProcessItem = ({ index, children }: OurProcessItemProps) => {
+  return (
+    <motion.li
+      variants={ourProcessFadeUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.4, delay: index * 0.1 }}
+      className="relative overflow-hidden"
+      whileHover="hovered">
+      <motion.div
+        className="absolute inset-0 bg-white"
+        initial={{ clipPath: 'inset(100% 0% 0% 0%)' }}
+        variants={{
+          hovered: {
+            clipPath: 'inset(0% 0% 0% 0%)',
+            transition: { duration: 0.5, ease: 'easeInOut' },
+          },
+          default: {
+            clipPath: 'inset(0% 0% 100% 0%)',
+            transition: { duration: 0.5, ease: 'easeInOut' },
+          },
+        }}
+      />
+
+      {children}
+    </motion.li>
+  );
+};
+
 export const ProjectAnalysisMobileImage = ({
   image,
   alt,
