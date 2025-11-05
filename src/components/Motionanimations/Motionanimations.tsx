@@ -285,3 +285,58 @@ export const OurServicesFaqs = () => {
     </>
   );
 };
+
+// Project Analysis animations
+interface ProjectAnalysisImageProps {
+  image: any;
+  alt: string;
+  keyValue: number | string;
+  className?: string;
+}
+
+export const ProjectAnalysisDesktopImage = ({
+  image,
+  alt,
+  keyValue,
+  className,
+}: ProjectAnalysisImageProps) => {
+  return (
+    <motion.div
+      key={keyValue}
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+      className={`${className} relative`}>
+      <Image
+        src={image}
+        alt={alt}
+        fill
+        className="object-cover"
+      />
+    </motion.div>
+  );
+};
+
+export const ProjectAnalysisMobileImage = ({
+  image,
+  alt,
+  className,
+}: Omit<ProjectAnalysisImageProps, 'keyValue'>) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}
+      viewport={{ once: true }}
+      className={className}>
+      <Image
+        src={image}
+        alt={alt}
+        className="rounded-xl w-full object-cover mb-5"
+        width={800}
+        height={600}
+        sizes="100vw"
+      />
+    </motion.div>
+  );
+};

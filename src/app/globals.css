@@ -58,6 +58,9 @@ h1.hero-title {
   h2 {
     @apply text-[clamp(50px,10vw,164px)] leading-[1.1] font-semibold font-secondary;
   }
+  span {
+    @apply text-xl md:text-2xl lg:text-[35px] leading-[1.4] pt-4 md:pt-8 lg:pt-[52px] block;
+  }
 }
 
 /* custom-scroller-y */
