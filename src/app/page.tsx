@@ -4,6 +4,7 @@ import Ourprocess from '@/components/Ourprocess/Ourprocess';
 import Ourservices from '@/components/Ourservices/Ourservices';
 import Ownerwords from '@/components/Ownerwords/Ownerwords';
 import Projectanalysis from '@/components/Projectanalysis/Projectanalysis';
+import Testimonials from '@/components/Testimonials/Testimonials';
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <Ourservices />
       <Projectanalysis />
       <Ourprocess />
+      <Testimonials />
     </main>
   );
 }
