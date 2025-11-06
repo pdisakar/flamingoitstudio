@@ -1,4 +1,6 @@
+import Featurednews from '@/components/Featurednews/Featurednews';
 import Herosection from '@/components/Herosection/Herosection';
+import Letstalk from '@/components/Letstalk/Letstalk';
 import Ourclients from '@/components/Ourclients/Ourclients';
 import Ourprocess from '@/components/Ourprocess/Ourprocess';
 import Ourservices from '@/components/Ourservices/Ourservices';
@@ -16,7 +18,8 @@ export default function Home() {
       <Projectanalysis />
       <Ourprocess />
       <Testimonials />
+      <Featurednews />
+      <Letstalk />
     </main>
   );
 }
-
