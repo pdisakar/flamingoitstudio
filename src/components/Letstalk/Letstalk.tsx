@@ -37,6 +37,15 @@ const Letstalk = () => {
             </Link>
           </h2>
         </div>
+        <div className="our-mail text-2xl flex items-center gap-2">
+          <svg
+            width={25}
+            height={25}
+            fill="currentColor">
+            <use xlinkHref="/icons.svg#ourmail" />
+          </svg>
+          hello@flamingoitstudio.com
+        </div>
       </div>
     </section>
   );
