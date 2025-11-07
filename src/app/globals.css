@@ -64,7 +64,7 @@ h1.hero-title {
   }
 }
 /* innerpage title h2 tags */
-.home-title {
+.page-title {
   @apply mb-8;
   h1,
   h2 {

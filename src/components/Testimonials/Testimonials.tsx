@@ -1,5 +1,3 @@
-'use client';
-
 import Accordion from '../Accordion/Accordion';
 import TestimonialsCard from '../Cards/TestimonialsCard/TestimonialsCard';
 import client1 from '../../../public/clients/client1.svg';
