@@ -5,10 +5,10 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
 const mobileMenuItems = [
-  { title: 'Services', href: '#' },
-  { title: 'Who We Are', href: '#' },
-  { title: 'Our Works', href: '#' },
-  { title: 'Blog', href: '#' },
+  { title: 'Services', href: 'services' },
+  { title: 'Who We Are', href: 'who-we-are' },
+  { title: 'Our Works', href: 'our-work' },
+  { title: 'Blogs', href: 'blogs' },
 ];
 
 const Header = () => {
@@ -32,12 +32,14 @@ const Header = () => {
         className="header container hidden lg:flex items-center justify-between pt-10"
         id="header">
         <div className="company-logo">
-          <Image
-            src={logo}
-            height={80}
-            width={70.04}
-            alt="Flamingo It Studio"
-          />
+          <Link href={'/'}>
+            <Image
+              src={logo}
+              height={80}
+              width={70.04}
+              alt="Flamingo It Studio"
+            />
+          </Link>
         </div>
         <nav>
           <ul className="flex items-center [&>li]:px-9 text-2xl font-medium">

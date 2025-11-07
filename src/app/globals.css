@@ -63,6 +63,17 @@ h1.hero-title {
     @apply text-xl md:text-2xl lg:text-[35px] leading-[1.4] pt-4 md:pt-8 lg:pt-[52px] block;
   }
 }
+/* innerpage title h2 tags */
+.home-title {
+  @apply mb-8;
+  h1,
+  h2 {
+    @apply text-[clamp(35px,10vw,135px)] leading-[1.1] font-semibold font-secondary capitalize;
+  }
+  span {
+    @apply text-xl md:text-2xl lg:text-[35px] leading-[1.4] pt-4 md:pt-8 lg:pt-[52px] block;
+  }
+}
 
 /* custom-scroller-y */
 .custom-scroller-y {
