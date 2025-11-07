@@ -1,4 +1,9 @@
 import Statistics from '@/components/Statistics/Statistics';
+import {
+  OurServicesProvider,
+  OurServicesImage,
+  OurServicesFaqs,
+} from '@/components/Motionanimations/Motionanimations';
 import React from 'react';
 import Image from 'next/image';
 import owner1 from '../../../public/owners/owner.webp';
@@ -9,11 +14,59 @@ const owners = [
   { id: 2, img: owner2, name: 'Owner Two' },
 ];
 
+const images = [
+  { id: 1, title: 'branding' },
+  { id: 2, title: 'companyanalysis' },
+  { id: 3, title: 'searchengine' },
+  { id: 4, title: 'socialmediamarketing' },
+  { id: 5, title: 'webdesign' },
+  { id: 6, title: 'webdev' },
+];
+
+const faqs = [
+  {
+    id: 1,
+    question: 'Branding',
+    answer:
+      'Our web development service focuses on building high-performing, user-friendly websites that reflect your brand identity. We ensure responsive, fast-loading, and secure websites that deliver a seamless experience across all devices.',
+  },
+  {
+    id: 2,
+    question: 'Company Analysis',
+    answer:
+      'Our web development service focuses on building high-performing, user-friendly websites that reflect your brand identity. We ensure responsive, fast-loading, and secure websites that deliver a seamless experience across all devices.',
+  },
+  {
+    id: 3,
+    question: 'Search Engine',
+    answer:
+      'Our web development service focuses on building high-performing, user-friendly websites that reflect your brand identity. We ensure responsive, fast-loading, and secure websites that deliver a seamless experience across all devices.',
+  },
+  {
+    id: 4,
+    question: 'Social Media Marketing',
+    answer:
+      'Our web development service focuses on building high-performing, user-friendly websites that reflect your brand identity. We ensure responsive, fast-loading, and secure websites that deliver a seamless experience across all devices.',
+  },
+  {
+    id: 5,
+    question: 'Web Design',
+    answer:
+      'Our web development service focuses on building high-performing, user-friendly websites that reflect your brand identity. We ensure responsive, fast-loading, and secure websites that deliver a seamless experience across all devices.',
+  },
+  {
+    id: 6,
+    question: 'Web Development',
+    answer:
+      'Our web development service focuses on building high-performing, user-friendly websites that reflect your brand identity. We ensure responsive, fast-loading, and secure websites that deliver a seamless experience across all devices.',
+  },
+];
+
 const page = () => {
   return (
     <div className="common-box">
       <div className="container">
-        <div className=" grid grid-cols-4 gap-6">
+        <div className="about-us-section grid grid-cols-4 gap-6">
           <div className="founded-container col-span-4 md:col-span-1">
             <ul className="flex items-center [&>li:not(:first-child)]:-ml-3">
               {owners.map(owner => (
@@ -71,6 +124,30 @@ const page = () => {
             </div>
           </div>
         </div>
+
+        <div className="our-principles">
+          <div className="page-title max-w-[895.59px]">
+            <h2>Explore Our Services</h2>
+          </div>
+          <OurServicesProvider
+            images={images}
+            faqs={faqs}>
+            <div className="our-service-container grid gap-10 md:grid-cols-2 items-start">
+              <div className="image-section flex flex-col items-center justify-center">
+                <span className="block text-xl md:text-2xl lg:text-[35px] leading-[1.4]  md:mb-6">
+                  We build with purpose, led by principles that value integrity,
+                  innovation, and delivering digital experiences that truly
+                  matter.
+                </span>
+                <OurServicesImage />
+              </div>
+              <div className="faqs-section">
+                <OurServicesFaqs />
+              </div>
+            </div>
+          </OurServicesProvider>
+        </div>
+
         <Statistics />
       </div>
     </div>
