@@ -1,6 +1,7 @@
 'use client';
 
 import Accordion from '../Accordion/Accordion';
+import TestimonialsCard from '../Cards/TestimonialsCard/TestimonialsCard';
 import client1 from '../../../public/clients/client1.svg';
 import client2 from '../../../public/clients/client2.svg';
 import client3 from '../../../public/clients/client3.png';
@@ -57,7 +58,17 @@ const Testimonials = () => {
         <div className="home-title max-w-[895.59px]">
           <h2>Partners in Success</h2>
         </div>
-        <Accordion items={items} />
+        <Accordion>
+          {items.map(item => (
+            <TestimonialsCard
+              key={item.id}
+              img={item.img}
+              author={item.author}
+              position={item.position}
+              body={item.body}
+            />
+          ))}
+        </Accordion>
       </div>
     </section>
   );
