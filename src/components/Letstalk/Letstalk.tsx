@@ -37,7 +37,7 @@ const Letstalk = () => {
             </Link>
           </h2>
         </div>
-        <div className="our-mail text-2xl flex items-center gap-2">
+        <div className="our-mail text-lg md:text-xl lg:text-2xl flex items-center gap-2">
           <svg
             width={25}
             height={25}

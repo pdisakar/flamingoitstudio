@@ -21,6 +21,7 @@
   /* Background images */
   --background-image-hero-bg-2: url('/backgrounds/hero-bg-2.svg');
   --background-image-hero-bg: url('/backgrounds/hero-bg.svg');
+  --background-image-footerbg: url('/backgrounds/footerbg.svg');
 }
 
 @utility font-primary {

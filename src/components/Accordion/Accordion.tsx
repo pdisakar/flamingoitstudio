@@ -50,7 +50,7 @@ const Accordion = ({ items }: AccordionProps) => {
             </p>
 
             <div className="mt-6">
-              <h4 className="text-lg lg:text-xl">{item.author}</h4>
+              <h3 className="text-lg lg:text-xl">{item.author}</h3>
               <span className="text-sm opacity-70">{item.position}</span>
             </div>
           </div>
