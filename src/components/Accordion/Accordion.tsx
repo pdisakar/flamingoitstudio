@@ -23,8 +23,7 @@ const Accordion = ({ children }: AccordionProps) => {
         0: { slidesPerView: 1 },
         768: { slidesPerView: 2 },
         1280: { slidesPerView: 3 },
-      }}
-      className="mt-12">
+      }}>
       {Children.map(children, (child, index) => (
         <SwiperSlide key={index}>{child}</SwiperSlide>
       ))}
