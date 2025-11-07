@@ -17,7 +17,7 @@ const Letstalk = () => {
           <h2 className="text-[clamp(50px,10vw,164px)] leading-[1.1] font-semibold font-secondary capitalize">
             Got Project in Mind?
             <Link
-              href={'#'}
+              href={'/contact-us'}
               className="text-primary underline relative inline-block hover:text-body transform transition-all duration-100">
               Lets Talk!
               <ul className="flex  items-center [&>li:not(:first-child)]:-ml-3 absolute top-[20%] -right-[85px] md:-right-[100px] lg:top-[10%] lg:-right-[5%] xl:top-[0%] xl:-right-[10%]">

@@ -335,8 +335,8 @@ export const OurProcessItem = ({ index, children }: OurProcessItemProps) => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.4, delay: index * 0.1 }}
-      className="relative overflow-hidden"
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="relative overflow-hidden group"
       whileHover="hovered">
       <motion.div
         className="absolute inset-0 bg-white"
@@ -344,11 +344,11 @@ export const OurProcessItem = ({ index, children }: OurProcessItemProps) => {
         variants={{
           hovered: {
             clipPath: 'inset(0% 0% 0% 0%)',
-            transition: { duration: 0.5, ease: 'easeInOut' },
+            transition: { duration: 0.2, ease: 'easeInOut' },
           },
           default: {
             clipPath: 'inset(0% 0% 100% 0%)',
-            transition: { duration: 0.5, ease: 'easeInOut' },
+            transition: { duration: 0.2, ease: 'easeInOut' },
           },
         }}
       />

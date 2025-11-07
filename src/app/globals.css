@@ -24,6 +24,11 @@
   --background-image-footerbg: url('/backgrounds/footerbg.svg');
 }
 
+::selection {
+  @apply bg-primary;
+  color: #ffffff;
+}
+
 @utility font-primary {
   font-family: var(--primaryfont);
 }
