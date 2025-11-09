@@ -5,6 +5,7 @@ import Image from 'next/image';
 import case1 from '../../../public/Projectanalysis/case1.png';
 import case2 from '../../../public/Projectanalysis/case2.png';
 import case3 from '../../../public/Projectanalysis/case3.png';
+import Link from 'next/link';
 
 const projects = [
   {
@@ -12,18 +13,21 @@ const projects = [
     image: case1,
     title: 'Nepal Hiking Team',
     moto: 'Nepal’s Top Travel',
+    link: '/nepal-hiking-team',
   },
   {
     id: 2,
     image: case2,
     title: 'Everest Luxury',
     moto: 'Nepal’s Emerging Travel',
+    link: '/everest-luxury',
   },
   {
     id: 3,
     image: case3,
     title: 'Luxury Holidays',
     moto: 'Nepal’s Leading Travel',
+    link: '/luxury-holidays',
   },
 ];
 
@@ -75,14 +79,18 @@ const page = () => {
               key={project.id}
               className="text-center group">
               <div className="image-slot aspect-674/600">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  className=' group-hover:scale-110'
-                />
+                <Link href={project.link}>
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    className=" group-hover:scale-105 transform transition-all duration-300"
+                  />
+                </Link>
               </div>
 
-              <h3 className="text-3xl font-semibold mt-4">{project.title}</h3>
+              <h3 className="text-3xl font-semibold mt-4 group-hover:text-primary transform transition-all duration-300">
+                <Link href={project.link}>{project.title} </Link>
+              </h3>
               <p className="text-lg text-white/80 mt-1">{project.moto}</p>
             </li>
           ))}
