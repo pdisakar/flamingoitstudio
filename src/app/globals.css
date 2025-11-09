@@ -84,3 +84,42 @@ h1.hero-title {
 .custom-scroller-y {
   @apply pb-2;
 }
+
+/* Image slot */
+@layer utilities {
+  .image-slot {
+    position: relative;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .image-slot::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #2d2d2d 25%, #3a3a3a 50%, #2d2d2d 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    z-index: 0;
+  }
+
+  .image-slot img {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: inherit;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+}

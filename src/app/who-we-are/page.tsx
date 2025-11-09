@@ -101,7 +101,7 @@ const page = () => {
               {owners.map(owner => (
                 <li
                   key={owner.id}
-                  className="relative h-[60px] w-[60px] md:h-[90px] md:w-[90px]">
+                  className="image-slot aspect-90/90">
                   <Image
                     src={owner.img}
                     alt={owner.name}

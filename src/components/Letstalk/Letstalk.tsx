@@ -24,7 +24,7 @@ const Letstalk = () => {
                 {owners.map(owner => (
                   <li
                     key={owner.id}
-                    className="relative h-[45px] w-[45px] md:h-[55px] md:w-[55px] lg:h-[65px] lg:w-[65px] xl:h-[90px] xl:w-[90px] rounded-full border-3 border-body-bg overflow-hidden bg-body-bg">
+                    className="relative h-[45px] w-[45px] md:h-[55px] md:w-[55px] lg:h-[65px] lg:w-[65px] xl:h-[90px] xl:w-[90px] rounded-full border-3 border-body-bg overflow-hidden bg-body-bg image-slot aspect-90/90">
                     <Image
                       src={owner.img}
                       alt={owner.name}

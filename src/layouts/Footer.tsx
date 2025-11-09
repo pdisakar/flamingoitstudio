@@ -81,7 +81,7 @@ const Footer = () => {
             <span className="block">
               © 2019 Flamingo It Studio. All rights reserved.
             </span>
-            <div className="company-logo">
+            <div className="company-logo image-slot aspect-80/7.04">
               <Image
                 src={logo}
                 height={80}
@@ -89,7 +89,7 @@ const Footer = () => {
                 alt="Flamingo It Studio"
               />
             </div>
-            <ul className=' flex gap-6'>
+            <ul className=" flex gap-6">
               <li>Terms of Service</li>
               <li>Privacy Policy</li>
             </ul>
