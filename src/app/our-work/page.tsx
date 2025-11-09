@@ -73,7 +73,7 @@ const page = () => {
           </p>
         </div>
 
-        <ul className="out-projets mt-8 md:mt-12 lg:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <ul className="out-projets mt-8 md:mt-12 lg:mt-16 grid grid-cols-1 md:grid-cols-2 gap-6">
           {projects.map(project => (
             <li
               key={project.id}
@@ -88,7 +88,7 @@ const page = () => {
                 </Link>
               </div>
 
-              <h3 className="text-3xl font-semibold mt-4 group-hover:text-primary transform transition-all duration-300">
+              <h3 className="text-3xl font-semibold mt-4 group-hover:text-primary transform transition-all duration-300 font-secondary">
                 <Link href={project.link}>{project.title} </Link>
               </h3>
               <p className="text-lg text-white/80 mt-1">{project.moto}</p>
