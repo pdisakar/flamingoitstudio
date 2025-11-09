@@ -179,7 +179,6 @@ const page = () => {
           </OurServicesProvider>
         </div>
       </div>
-
       <div className="how-we-stand-out common-box pt-0">
         <ul className="lg:[&>li>div>h3]:text-5xl md:[&>li>div>h3]:text-4xl [&>li>div>h3]:text-3xl [&>li>div>h3]:font-semibold [&>li>div>p]:text-xl lg:[&>li>div>p]:mt-6 md:[&>li>div>p]:mt-5 [&>li>div>p]:mt-4 lg:[&>li]:py-16 md:[&>li]:py-14 [&>li]:py-10 first:[&>li]:border-t [&>li]:border-b [&>li]:border-border/25 ">
           {how_we_stand_out.map((item, index) => (
