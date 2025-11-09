@@ -67,27 +67,39 @@ const faqs = [
 const how_we_stand_out = [
   {
     id: 1,
-    title: 'Collaborative Partnership',
+    title: 'Innovation & Creativity',
     description:
-      'At Flamingo IT Studio, we don’t just build websites—we build relationships. We believe that the best digital products are born from mutual trust, shared vision, and active engagement. From day one, we treat your goals as our own, involving you in key stages of the project lifecycle—from discovery and wireframing to deployment and support. Our team actively listens, asks the right questions, and adapts to your feedback with agility. Through open communication, regular updates, and transparent workflows, we ensure you always feel in control, confident, and heard. It’s not client vs. developer—it’s a collaborative team working toward one shared success.',
+      'We believe innovation drives progress. By blending technology with creativity, we design digital solutions that stand out — transforming ideas into engaging, future-ready experiences that inspire and perform.',
   },
   {
     id: 2,
-    title: 'Precision by Design',
+    title: 'Client Success First',
     description:
-      "Every line of code we write and every interface we shape reflects a mindset of intentional creation. Much like an architect approaches a blueprint, we approach digital development with structure, clarity, and purpose. We don't chase trends for the sake of novelty; instead, we design and build with meaning—carefully considering user behavior, technical performance, and brand alignment. Every element on your platform has a reason to exist, contributing to a cohesive, intuitive, and engaging user experience. The result? Products that are as functional as they are beautiful—clean, logical, and engineered to last.",
+      'Our clients are at the heart of everything we do. We take time to understand their goals, challenges, and vision, ensuring every project we deliver helps them grow, connect, and achieve lasting success.',
   },
   {
     id: 3,
-    title: 'Streamlined by Purpose',
+    title: 'Quality & Precision',
     description:
-      'Simplicity isn’t just a design choice—it’s a strategy. At Flamingo IT Studio, we embrace a lean, focused approach to development that cuts through clutter and delivers clean, efficient results. Our process removes complexity without sacrificing depth, ensuring your digital solution is fast, scalable, and easy to maintain. We prioritize speed, usability, and clean code, all while delivering sleek, intuitive interfaces that resonate with users. Whether it’s optimizing site performance, reducing bounce rates, or simplifying navigation—we make sure your digital product does more with less.',
+      'Excellence is our standard. From planning to deployment, we craft every detail with precision — writing clean, scalable code and creating interfaces that are fast, secure, and beautifully designed.',
   },
   {
     id: 4,
-    title: 'Strategy-First Development',
+    title: 'Transparency & Trust',
     description:
-      'Behind every powerful digital experience lies a strong strategic foundation. That’s why we start every project with deep research, smart planning, and business alignment. We don’t dive straight into design or development—we take the time to understand your market, users, competitors, and goals. This allows us to map out a development strategy that not only looks good but performs with purpose. From architecture to UX flows and backend systems, every decision we make is aligned with your bigger picture. At Flamingo IT Studio, strategy isn’t an afterthought—it’s the blueprint that guides the entire build.',
+      'We value honesty, clarity, and accountability. By maintaining open communication and delivering on our promises, we build long-term relationships based on trust and mutual respect.',
+  },
+  {
+    id: 5,
+    title: 'Continuous Growth',
+    description:
+      'The digital world never stops evolving — and neither do we. Our team is dedicated to continuous learning, exploring new technologies, and improving our skills to stay ahead of industry trends.',
+  },
+  {
+    id: 6,
+    title: 'Collaboration & Teamwork',
+    description:
+      'We believe great things happen when creative minds work together. Our strength lies in our teamwork — sharing ideas, supporting each other, and turning collaboration into innovation.',
   },
 ];
 
@@ -158,7 +170,7 @@ const page = () => {
         </div>
         <div className="our-principles common-box pt-0">
           <div className="page-title max-w-[895.59px]">
-            <h2>Explore Our Services</h2>
+            <h2>Our Guiding Principles</h2>
           </div>
           <OurServicesProvider
             images={images}
@@ -187,10 +199,10 @@ const page = () => {
               key={item.id}
               index={index}>
               <div className="relative z-10 container">
-                <h3 className="transition-colors group-hover:text-primary">
+                <h3 className="transition-colors group-hover:text-body-bg">
                   {item.title}
                 </h3>
-                <p className="group-hover:text-primary">{item.description}</p>
+                <p className="group-hover:text-body-bg">{item.description}</p>
               </div>
             </OurProcessItem>
           ))}

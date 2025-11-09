@@ -51,7 +51,7 @@ const Ourprocess = () => {
           <OurProcessItem
             key={process.id}
             index={index}>
-            <div className="container item relative z-10 flex items-center justify-between flex-wrap py-16 border-b border-white/15 first:border-t gap-4 hover:text-primary">
+            <div className="container item relative z-10 flex items-center justify-between flex-wrap py-16 border-b border-white/15 first:border-t gap-4 hover:text-body-bg">
               <div className="process-title flex flex-wrap items-center gap-4 lg:gap-12">
                 <span className="process-id text-[18px] md:text-[22px] lg:text-[26px]">
                   {String(process.id).padStart(2, '0')}.
