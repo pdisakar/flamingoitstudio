@@ -7,21 +7,11 @@ interface TestimonialsCardProps {
   body: string;
 }
 
-const TestimonialsCard = ({
-  img,
-  author,
-  position,
-  body,
-}: TestimonialsCardProps) => {
+const TestimonialsCard = ({ img, author, position, body }: TestimonialsCardProps) => {
   return (
     <div className="bg-white/10 md:border-l border-white/15 p-10 lg:p-10 xl:p-20 h-full hover:cursor-grab">
-      <div className="image-slot aspect-70/70">
-        <Image
-          src={img}
-          alt={author}
-          fill
-          className="object-contain"
-        />
+      <div className="relative h-[70px] mb-6 flex items-start">
+        <Image src={img} alt={author} fill className="object-contain" />
       </div>
 
       <p className="text-[20px] md:text-[22px] lg:text-[28px]">"{body}"</p>
