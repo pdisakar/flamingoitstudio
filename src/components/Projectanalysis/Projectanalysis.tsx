@@ -16,6 +16,7 @@ const casees = [
     image: case1,
     title: 'Nepal’s Top Travel Agency Website Development and Maintenance',
     dody: 'Developed a dynamic website for Nepal’s leading company, seamlessly blending powerful functionality with a modern design to elevate brand presence and deliver an engaging, user-centric digital experience.',
+    link: 'nepal-hiking-team',
   },
   {
     id: 2,
@@ -23,6 +24,7 @@ const casees = [
     title:
       'Crafted and Maintain the Digital Platform for Nepal’s Leading Travel Agency',
     dody: 'Designed and maintained the website for Nepal’s top-ranked travel agency in recent years, delivering a seamless user experience, robust performance, and a compelling digital presence that reflects their industry-leading status.',
+    link: 'luxury-holidays',
   },
   {
     id: 3,
@@ -30,6 +32,7 @@ const casees = [
     title:
       'Website Development and Maintenance for Nepal’s Emerging Travel Agency',
     dody: 'Designed and developed the website for one of Nepal’s fastest-growing travel agencies, creating a modern, scalable platform to support their rising presence in the tourism industry.',
+    link: 'everest-luxury',
   },
 ];
 
@@ -95,7 +98,7 @@ const Projectanalysis = () => {
                 </p>
 
                 <Link
-                  href="#"
+                  href={item.link}
                   className="group flex items-center gap-3 border border-primary text-primary hover:bg-primary hover:text-white transition rounded-full pl-6 pr-2 py-2 text-base w-fit">
                   Read Now
                   <div className="action-btn h-10 w-10 bg-primary/20 flex items-center group-hover:bg-white/20 justify-center rounded-full">
@@ -130,7 +133,7 @@ const Projectanalysis = () => {
               <p className="my-3 text-base opacity-80">{item.dody}</p>
 
               <Link
-                href="#"
+                href={item.link}
                 className="group flex items-center gap-3 border border-primary text-primary hover:bg-primary hover:text-white transition rounded-full pl-6 pr-2 py-2 text-base w-fit">
                 Read Now
                 <div className="action-btn h-10 w-10 bg-primary/20 flex items-center group-hover:bg-white/20 justify-center rounded-full">
