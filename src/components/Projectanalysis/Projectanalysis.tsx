@@ -58,79 +58,43 @@ const Projectanalysis = () => {
   }, []);
 
   return (
-    <section className="common-box pt-0 relative">
-      <div className="container">
-        <div className="home-title text-center mb-14">
-          <h2>In Depth Analysis of Our Best Works</h2>
-          <span>
-            Discover our case studies showcasing exceptional web development
-            projects and impactful digital solutions.
-          </span>
+    <>
+      <div className="home-title text-center mb-14">
+        <h2>In Depth Analysis of Our Best Works</h2>
+        <span>
+          Discover our case studies showcasing exceptional web development
+          projects and impactful digital solutions.
+        </span>
+      </div>
+
+      {/* Desktop Layout */}
+      <div className="hidden md:grid grid-cols-2 md:gap-6 lg:gap-12 min-h-screen mt-20">
+        <div className="sticky top-20 h-[550px] lg:h-[800px] flex items-start">
+          <ProjectAnalysisDesktopImage
+            key={activeImage}
+            image={casees[activeImage].image}
+            alt={casees[activeImage].title}
+            keyValue={activeImage}
+            className="w-full h-full overflow-hidden rounded-lg"
+          />
         </div>
 
-        {/* Desktop Layout */}
-        <div className="hidden md:grid grid-cols-2 md:gap-6 lg:gap-12 min-h-screen mt-20">
-          <div className="sticky top-20 h-[550px] lg:h-[800px] flex items-start">
-            <ProjectAnalysisDesktopImage
-              key={activeImage}
-              image={casees[activeImage].image}
-              alt={casees[activeImage].title}
-              keyValue={activeImage}
-              className="w-full h-full overflow-hidden rounded-lg"
-            />
-          </div>
-
-          <div>
-            {casees.map((item, i) => (
-              <div
-                key={item.id}
-                data-index={i}
-                ref={el => {
-                  sectionRefs.current[i] = el;
-                }}
-                className="md:pt-10 lg:pt-40">
-                <h3 className="text-3xl lg:text-[48px] font-semibold leading-[1.2]">
-                  {item.title}
-                </h3>
-
-                <p className="my-5 text-lg opacity-80 leading-relaxed">
-                  {item.dody}
-                </p>
-
-                <Link
-                  href={item.link}
-                  className="group flex items-center gap-3 border border-primary text-primary hover:bg-primary hover:text-white transition rounded-full pl-6 pr-2 py-2 text-base w-fit">
-                  Read Now
-                  <div className="action-btn h-10 w-10 bg-primary/20 flex items-center group-hover:bg-white/20 justify-center rounded-full">
-                    <svg
-                      width={16}
-                      height={16}
-                      className="transition duration-300 group-hover:-rotate-45"
-                      fill="currentColor">
-                      <use xlinkHref="/icons.svg#arrow45" />
-                    </svg>
-                  </div>
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Mobile Layout */}
-        <div className="block md:hidden space-y-20 mt-10">
-          {casees.map(item => (
-            <div key={item.id}>
-              <ProjectAnalysisMobileImage
-                image={item.image}
-                alt={item.title}
-                className="overflow-hidden"
-              />
-
-              <h3 className="text-3xl font-semibold leading-tight">
+        <div>
+          {casees.map((item, i) => (
+            <div
+              key={item.id}
+              data-index={i}
+              ref={el => {
+                sectionRefs.current[i] = el;
+              }}
+              className="md:pt-10 lg:pt-40">
+              <h3 className="text-3xl lg:text-[48px] font-semibold leading-[1.2]">
                 {item.title}
               </h3>
 
-              <p className="my-3 text-base opacity-80">{item.dody}</p>
+              <p className="my-5 text-lg opacity-80 leading-relaxed">
+                {item.dody}
+              </p>
 
               <Link
                 href={item.link}
@@ -150,7 +114,41 @@ const Projectanalysis = () => {
           ))}
         </div>
       </div>
-    </section>
+
+      {/* Mobile Layout */}
+      <div className="block md:hidden space-y-20 mt-10">
+        {casees.map(item => (
+          <div key={item.id}>
+            <ProjectAnalysisMobileImage
+              image={item.image}
+              alt={item.title}
+              className="overflow-hidden"
+            />
+
+            <h3 className="text-3xl font-semibold leading-tight">
+              {item.title}
+            </h3>
+
+            <p className="my-3 text-base opacity-80">{item.dody}</p>
+
+            <Link
+              href={item.link}
+              className="group flex items-center gap-3 border border-primary text-primary hover:bg-primary hover:text-white transition rounded-full pl-6 pr-2 py-2 text-base w-fit">
+              Read Now
+              <div className="action-btn h-10 w-10 bg-primary/20 flex items-center group-hover:bg-white/20 justify-center rounded-full">
+                <svg
+                  width={16}
+                  height={16}
+                  className="transition duration-300 group-hover:-rotate-45"
+                  fill="currentColor">
+                  <use xlinkHref="/icons.svg#arrow45" />
+                </svg>
+              </div>
+            </Link>
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 

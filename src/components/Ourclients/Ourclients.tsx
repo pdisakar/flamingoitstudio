@@ -22,13 +22,9 @@ const clients = [
 
 const OurClients = () => {
   return (
-    <section className="common-box">
-      <div className="container">
-        <div className="overflow-x-auto custom-scroller-y">
-          <ClientsRotator clients={clients} />
-        </div>
-      </div>
-    </section>
+    <div className="overflow-x-auto custom-scroller-y">
+      <ClientsRotator clients={clients} />
+    </div>
   );
 };
 

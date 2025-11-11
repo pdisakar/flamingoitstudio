@@ -195,10 +195,9 @@ const page = () => {
             ))}
           </ul>
         </div>
-
-        <div className="common-box pt-0">
-          <Letstalk />
-        </div>
+      </div>
+      <div className="common-box pt-0">
+        <Letstalk />
       </div>
     </>
   );

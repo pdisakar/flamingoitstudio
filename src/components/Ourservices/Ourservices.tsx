@@ -54,29 +54,27 @@ const faqs = [
 
 const Ourservices = () => {
   return (
-    <section className="common-box pt-0">
-      <div className="container">
-        <div className="home-title max-w-[895.59px]">
-          <h2>Explore Our Services</h2>
-        </div>
-        <OurServicesProvider
-          images={images}
-          faqs={faqs}>
-          <div className="our-service-container grid gap-10 md:grid-cols-2 items-start">
-            <div className="image-section flex flex-col items-center justify-center">
-              <span className="block text-xl md:text-2xl lg:text-[35px] leading-[1.4]  md:mb-6">
-                Transform your brand with our cutting-edge web development
-                solutions and seamless digital experiences.
-              </span>
-              <OurServicesImage />
-            </div>
-            <div className="faqs-section">
-              <OurServicesFaqs />
-            </div>
-          </div>
-        </OurServicesProvider>
+    <>
+      <div className="home-title max-w-[895.59px]">
+        <h2>Explore Our Services</h2>
       </div>
-    </section>
+      <OurServicesProvider
+        images={images}
+        faqs={faqs}>
+        <div className="our-service-container grid gap-10 md:grid-cols-2 items-start">
+          <div className="image-section flex flex-col items-center justify-center">
+            <span className="block text-xl md:text-2xl lg:text-[35px] leading-[1.4]  md:mb-6">
+              Transform your brand with our cutting-edge web development
+              solutions and seamless digital experiences.
+            </span>
+            <OurServicesImage />
+          </div>
+          <div className="faqs-section">
+            <OurServicesFaqs />
+          </div>
+        </div>
+      </OurServicesProvider>
+    </>
   );
 };
 

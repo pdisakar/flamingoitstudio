@@ -12,18 +12,45 @@ export default function Home() {
   return (
     <main>
       <Herosection />
-      <Ownerwords />
-      <Ourclients />
-      <Ourservices />
-      <Projectanalysis />
-      <Ourprocess />
-      <Testimonials />
+      <section className="common-box pt-0">
+        <div className="container">
+          <Ownerwords />
+        </div>
+      </section>
+      <section className="common-box">
+        <div className="container">
+          <Ourclients />
+        </div>
+      </section>
+      <section className="common-box pt-0">
+        <div className="container">
+          <Ourservices />
+        </div>
+      </section>
+      <section className="common-box pt-0">
+        <div className="container">
+          <Projectanalysis />
+        </div>
+      </section>
+      <section className="common-box pt-0 overflow-hidden">
+        <div className="container">
+          <Ourprocess />
+        </div>
+      </section>
+
+      <section className="common-box pt-0 overflow-hidden">
+        <div className="container">
+          <Testimonials />
+        </div>
+      </section>
+
       <Featurednews />
-      <div className="common-box pt-0">
+
+      <section className="common-box pt-0 overflow-hidden">
         <div className="container">
           <Letstalk />
         </div>
-      </div>
+      </section>
     </main>
   );
 }

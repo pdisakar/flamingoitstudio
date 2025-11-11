@@ -51,24 +51,22 @@ const items = [
 
 const Testimonials = () => {
   return (
-    <section className="common-box pt-0">
-      <div className="container mx-auto px-4">
-        <div className="home-title max-w-[895.59px]">
-          <h2>Partners in Success</h2>
-        </div>
-        <Accordion>
-          {items.map(item => (
-            <TestimonialsCard
-              key={item.id}
-              img={item.img}
-              author={item.author}
-              position={item.position}
-              body={item.body}
-            />
-          ))}
-        </Accordion>
+    <>
+      <div className="home-title max-w-[895.59px]">
+        <h2>Partners in Success</h2>
       </div>
-    </section>
+      <Accordion>
+        {items.map(item => (
+          <TestimonialsCard
+            key={item.id}
+            img={item.img}
+            author={item.author}
+            position={item.position}
+            body={item.body}
+          />
+        ))}
+      </Accordion>
+    </>
   );
 };
 
