@@ -93,9 +93,9 @@ const how_we_stand_out = [
 
 const page = () => {
   return (
-    <>
+    <div className="common-box overflow-hidden ">
       <div className="container">
-        <div className="about-us-section common-box grid grid-cols-4 gap-6">
+        <div className="about-us-section grid grid-cols-4 gap-6">
           <div className="founded-container col-span-4 md:col-span-1">
             <ul className="flex items-center [&>li:not(:first-child)]:-ml-3">
               {owners.map(owner => (
@@ -117,7 +117,6 @@ const page = () => {
               <span>Flamingo It Studio</span>
             </div>
           </div>
-
           <div className="col-span-4 md:col-span-3">
             <div className="page-title">
               <h1>Crafting Interfaces, Component by Component</h1>
@@ -153,10 +152,10 @@ const page = () => {
             </div>
           </div>
         </div>
-        <div className="common-box pt-0">
+        <div className="common-box pt-0 statistics">
           <Statistics />
         </div>
-        <div className="our-principles common-box pt-0">
+        <div className="common-box pt-0 our-principles ">
           <div className="page-title max-w-[895.59px]">
             <h2>Our Guiding Principles</h2>
           </div>
@@ -178,8 +177,7 @@ const page = () => {
             </div>
           </OurServicesProvider>
         </div>
-
-        <div className="how-we-stand-out common-box pt-0">
+        <div className="common-box pt-0 how-we-stand-out ">
           <ul className="lg:[&>li>div>h3]:text-5xl md:[&>li>div>h3]:text-4xl [&>li>div>h3]:text-3xl [&>li>div>h3]:font-semibold [&>li>div>p]:text-xl lg:[&>li>div>p]:mt-6 md:[&>li>div>p]:mt-5 [&>li>div>p]:mt-4 lg:[&>li]:py-16 md:[&>li]:py-14 [&>li]:py-10 first:[&>li]:border-t [&>li]:border-b [&>li]:border-border/25 ">
             {how_we_stand_out.map((item, index) => (
               <OurProcessItem
@@ -195,11 +193,11 @@ const page = () => {
             ))}
           </ul>
         </div>
+        <div className="common-box pt-0">
+          <Letstalk />
+        </div>
       </div>
-      <div className="common-box pt-0">
-        <Letstalk />
-      </div>
-    </>
+    </div>
   );
 };
 
