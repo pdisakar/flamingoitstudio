@@ -196,7 +196,11 @@ const page = () => {
           ))}
         </ul>
       </div>
-      <Letstalk />
+      <div className="container">
+        <div className="common-box pt-0">
+          <Letstalk />
+        </div>
+      </div>
     </>
   );
 };
