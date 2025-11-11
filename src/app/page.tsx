@@ -19,8 +19,11 @@ export default function Home() {
       <Ourprocess />
       <Testimonials />
       <Featurednews />
-      <Letstalk />
+      <div className="common-box pt-0">
+        <div className="container">
+          <Letstalk />
+        </div>
+      </div>
     </main>
   );
 }
-

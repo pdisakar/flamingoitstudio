@@ -15,7 +15,7 @@ const page = () => {
             team is ready to craft solutions tailored to your goals.
           </p>
         </div>
-        <div className="contact-container grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="contact-container grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-14">
           <div className="contact-form">
             <form action="#">
               <div className="about-person grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
@@ -32,17 +32,15 @@ const page = () => {
                   required
                   className="placeholder:text-white border-b border-white focus:outline-none bg-transparent w-full pb-2 focus:placeholder:text-white/50"
                 />
-
                 <input
                   type="number"
                   placeholder="+977 **********"
                   required
-                  className="placeholder:text-white border-b border-white focus:outline-none bg-transparent w-full pb-2 focus:placeholder:text-white/50 col-span-1 md:col-span-2 lg:col-span-1"
+                  className="placeholder:text-white border-b border-white focus:outline-none bg-transparent w-full pb-2 focus:placeholder:text-white/50 col-span-1 md:col-span-2 lg:col-span-1 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [appearance:textfield]"
                 />
               </div>
-
               <input
-                type="text"
+                type="email"
                 placeholder="Email Address *"
                 required
                 className="placeholder:text-white border-b border-white focus:outline-none bg-transparent w-full pb-2 focus:placeholder:text-white/50 mt-8"
@@ -53,8 +51,8 @@ const page = () => {
                 className="placeholder:text-white border-b border-white focus:outline-none bg-transparent w-full pb-2 focus:placeholder:text-white/50 mt-8"
               />
               <div className="our-services mt-6 md:mt-8 lg:mt-12">
-                <h4 className="text-lg font-medium mb-4">Services</h4>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-white">
+                <h4 className="text-xl font-medium mb-4">Services</h4>
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 text-white">
                   {[
                     'Web Design',
                     'Content Creation',
@@ -77,12 +75,15 @@ const page = () => {
                   ))}
                 </div>
               </div>
+              <button className=" w-full py-3 bg-primary  mt-6 md:mt-8 lg:mt-12">
+                Send Message
+              </button>
             </form>
           </div>
           <div className="contact-details">this is details</div>
         </div>
       </div>
-      <div className="common-box">
+      <div className="common-box pt-0">
         <Letstalk />
       </div>
     </div>

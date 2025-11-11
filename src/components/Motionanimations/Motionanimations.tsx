@@ -336,10 +336,10 @@ export const OurProcessItem = ({ index, children }: OurProcessItemProps) => {
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="relative overflow-hidden group"
+      className="relative group"
       whileHover="hovered">
       <motion.div
-        className="absolute inset-0 bg-white"
+        className="absolute inset-0 -left-[9999px] bg-white -right-[9999px]"
         initial={{ clipPath: 'inset(100% 0% 0% 0%)' }}
         variants={{
           hovered: {

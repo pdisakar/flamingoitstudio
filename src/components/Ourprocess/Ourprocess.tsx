@@ -35,7 +35,7 @@ const item = [
 
 const Ourprocess = () => {
   return (
-    <section className="common-box py-20">
+    <section className="common-box py-20 overflow-hidden">
       <div className="container">
         <div className="home-title max-w-[1022.75px]">
           <h2>Within our dev process</h2>
@@ -44,31 +44,31 @@ const Ourprocess = () => {
             process.
           </span>
         </div>
-      </div>
 
-      <ul className="our-process-container mt-10 md:mt-15 lg:mt-20">
-        {item.map((process, index) => (
-          <OurProcessItem
-            key={process.id}
-            index={index}>
-            <div className="container item relative z-10 flex items-center justify-between flex-wrap py-16 border-b border-white/15 first:border-t gap-4 hover:text-body-bg">
-              <div className="process-title flex flex-wrap items-center gap-4 lg:gap-12">
-                <span className="process-id text-[18px] md:text-[22px] lg:text-[26px]">
-                  {String(process.id).padStart(2, '0')}.
-                </span>
+        <ul className="our-process-container mt-10 md:mt-15 lg:mt-20">
+          {item.map((process, index) => (
+            <OurProcessItem
+              key={process.id}
+              index={index}>
+              <div className="item relative z-10 flex items-center justify-between flex-wrap py-16 border-b border-white/15 first:border-t gap-4 hover:text-body-bg">
+                <div className="process-title flex flex-wrap items-center gap-4 lg:gap-12">
+                  <span className="process-id text-[18px] md:text-[22px] lg:text-[26px]">
+                    {String(process.id).padStart(2, '0')}.
+                  </span>
 
-                <span className="process-title text-2xl md:text-3xl lg:text-5xl font-medium">
-                  {process.title}
-                </span>
+                  <span className="process-title text-2xl md:text-3xl lg:text-5xl font-medium">
+                    {process.title}
+                  </span>
+                </div>
+
+                <p className="process-body max-w-[813px] text-lg md:text-[22px] leading-[1.6]">
+                  {process.body}
+                </p>
               </div>
-
-              <p className="process-body max-w-[813px] text-lg md:text-[22px] leading-[1.6]">
-                {process.body}
-              </p>
-            </div>
-          </OurProcessItem>
-        ))}
-      </ul>
+            </OurProcessItem>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 };
