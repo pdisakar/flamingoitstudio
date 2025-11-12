@@ -316,13 +316,7 @@ export async function getHomeData(): Promise<any> {
       0,
       5
     ),
-    category_section_a: {
-      ...result.data.data.category_section_a,
-      packages: (result.data.data as any).category_section_a.packages.slice(
-        0,
-        5
-      ),
-    },
+
     featured_blogs: (result.data.data as any).featured_blogs.slice(0, 4),
   };
   return homeContent;
@@ -430,60 +424,60 @@ interface PackageResponse {
   };
 }
 
-export async function getPackage(query: string) {
-  const result = await fetchApiData<PackageResponse>(
-    `/packagecontent/${query}`
-  );
-  if ('error' in result) return result;
+// export async function getPackage(query: string) {
+//   const result = await fetchApiData<PackageResponse>(
+//     `/packagecontent/${query}`
+//   );
+//   if ('error' in result) return result;
 
-  const { package_extra_faqs, group_faqs, package_trip_info } =
-    result.data.data.content;
+//   const { package_extra_faqs, group_faqs, package_trip_info } =
+//     result.data.data.content;
 
-  const elements = package_extra_faqs ? parseHTML(package_extra_faqs) : [];
-  let extra_faqs = elements.length > 0 ? buildFAQsFromElements(elements) : [];
+//   const elements = package_extra_faqs ? parseHTML(package_extra_faqs) : [];
+//   let extra_faqs = elements.length > 0 ? buildFAQsFromElements(elements) : [];
 
-  const package_trip_info_elements = package_trip_info
-    ? parseHTML(package_trip_info)
-    : [];
-  let good_to_know =
-    package_trip_info_elements.length > 0
-      ? goodToKnowJSON(package_trip_info_elements)
-      : [];
-  const groupFaqs = (
-    Array.isArray(group_faqs)
-      ? group_faqs
-      : Object.values(group_faqs as Record<string, any>)
-  ) as FAQCategory[];
+//   const package_trip_info_elements = package_trip_info
+//     ? parseHTML(package_trip_info)
+//     : [];
+//   let good_to_know =
+//     package_trip_info_elements.length > 0
+//       ? goodToKnowJSON(package_trip_info_elements)
+//       : [];
+//   const groupFaqs = (
+//     Array.isArray(group_faqs)
+//       ? group_faqs
+//       : Object.values(group_faqs as Record<string, any>)
+//   ) as FAQCategory[];
 
-  if (extra_faqs.length > 0) {
-    if (groupFaqs.length > 0) {
-      groupFaqs.splice(Math.min(3, groupFaqs.length), 0, ...extra_faqs);
-    } else {
-      groupFaqs.push(...extra_faqs);
-    }
-  }
+//   if (extra_faqs.length > 0) {
+//     if (groupFaqs.length > 0) {
+//       groupFaqs.splice(Math.min(3, groupFaqs.length), 0, ...extra_faqs);
+//     } else {
+//       groupFaqs.push(...extra_faqs);
+//     }
+//   }
 
-  return {
-    ...result.data.data,
-    content: {
-      ...result.data.data.content,
-      groupFaqs,
-      package_extra_faqs: null,
-      package_trip_inf: null,
-      good_to_know,
-    },
-  };
-}
+//   return {
+//     ...result.data.data,
+//     content: {
+//       ...result.data.data.content,
+//       groupFaqs,
+//       package_extra_faqs: null,
+//       package_trip_inf: null,
+//       good_to_know,
+//     },
+//   };
+// }
 
-interface ItineraryResponse {
-  data: any;
-}
+// interface ItineraryResponse {
+//   data: any;
+// }
 
-export async function getItineraryByPackageId(id: string | number) {
-  const result = await fetchApiData<ItineraryResponse>(`/itinerarydata/${id}`);
-  if ('error' in result) return result;
-  return result.data.data;
-}
+// export async function getItineraryByPackageId(id: string | number) {
+//   const result = await fetchApiData<ItineraryResponse>(`/itinerarydata/${id}`);
+//   if ('error' in result) return result;
+//   return result.data.data;
+// }
 
 interface PageContentResponse {
   data: any;
@@ -511,13 +505,13 @@ export async function getAboutPage() {
   return data;
 }
 
-export async function getCostomizePage() {
-  const result = await fetchApiData<PageContentResponse>(
-    `/content/customize-trip`
-  );
-  if ('error' in result) return result;
-  return result.data.data;
-}
+// export async function getCostomizePage() {
+//   const result = await fetchApiData<PageContentResponse>(
+//     `/content/customize-trip`
+//   );
+//   if ('error' in result) return result;
+//   return result.data.data;
+// }
 
 export async function getFaqsPage() {
   const result = await fetchApiData<PageContentResponse>(`/content/faqs`);
@@ -525,13 +519,13 @@ export async function getFaqsPage() {
   return result.data.data;
 }
 
-export async function getFaqsByCategory(query: string) {
-  const result = await fetchApiData<PageContentResponse>(
-    `/faqbycategory/${query}`
-  );
-  if ('error' in result) return result;
-  return result.data.data;
-}
+// export async function getFaqsByCategory(query: string) {
+//   const result = await fetchApiData<PageContentResponse>(
+//     `/faqbycategory/${query}`
+//   );
+//   if ('error' in result) return result;
+//   return result.data.data;
+// }
 
 export async function getTeamPage() {
   const result = await fetchApiData<PageContentResponse>(
@@ -565,27 +559,27 @@ interface PackageByCategoryResponse {
   content: PackageItem[];
 }
 
-export async function getPackageByCategory(query: string) {
-  const result = await fetchApiData<PackageByCategoryResponse>(
-    `/packagebycategory/${query}`
-  );
-  if ('error' in result) return result;
+// export async function getPackageByCategory(query: string) {
+//   const result = await fetchApiData<PackageByCategoryResponse>(
+//     `/packagebycategory/${query}`
+//   );
+//   if ('error' in result) return result;
 
-  const packageData = result.data.content.slice(0, 5).map(a => ({
-    package_title: a.package_title,
-    featured: a.featured,
-    package_discount: a.package_discount,
-    package_duration: a.package_duration,
-    package_duration_type: a.package_duration_type,
-    urlinfo: a.urlinfo,
-    testimonials: a.testimonials,
-    additional_field_1: a.additional_field_1,
-    group_default_price: a.group_default_price,
-    total_testimonials: a.total_testimonials,
-    id: a.id,
-  }));
-  return packageData;
-}
+//   const packageData = result.data.content.slice(0, 5).map(a => ({
+//     package_title: a.package_title,
+//     featured: a.featured,
+//     package_discount: a.package_discount,
+//     package_duration: a.package_duration,
+//     package_duration_type: a.package_duration_type,
+//     urlinfo: a.urlinfo,
+//     testimonials: a.testimonials,
+//     additional_field_1: a.additional_field_1,
+//     group_default_price: a.group_default_price,
+//     total_testimonials: a.total_testimonials,
+//     id: a.id,
+//   }));
+//   return packageData;
+// }
 
 export async function getContentByKeyType(query: string) {
   const result = await fetchApiData<PageContentResponse>(
