@@ -8,7 +8,13 @@ import Ownerwords from '@/components/Ownerwords/Ownerwords';
 import Projectanalysis from '@/components/Projectanalysis/Projectanalysis';
 import Testimonials from '@/components/Testimonials/Testimonials';
 
-export default function Home() {
+import { getHomeData } from '@/services/network_requests';
+
+export default async function Home() {
+  const data = await Promise.all([getHomeData()]);
+
+  console.log(data);
+
   return (
     <main>
       <Herosection />
