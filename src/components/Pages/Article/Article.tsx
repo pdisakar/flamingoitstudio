@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Article = data => {
+const Article = (data: any) => {
   console.log(data);
 
   return <div>Article page</div>;
