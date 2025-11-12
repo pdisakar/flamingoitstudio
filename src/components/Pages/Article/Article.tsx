@@ -98,7 +98,7 @@ const Article = ({ data }: any) => {
         {content?.page_description && (
           <div
             className={`
-              md:grid md:grid-cols-[1fr_2fr] md:gap-8 *:md:grid-col-span-full [&>h3]:md:col-start-1 [&>h3]:md:col-end-2 [&>h3]:text-[clamp(28px,10vw,52px)] [&>h3]:font-secondary [&>h3]:leading-[1.2] [&>h3]:font-semibold [&>h3]:mt-3.5 [&>h4]:mt-3 [&>p]:md:text-body/95 [&>p:not(:first-child)]:mt-2.5 [&>h3]:md:pr-6 [&>h3:md:self-start [&>h4]:text-[clamp(22px,10vw,28px)] [&>h4]:leading-[1.2] [&>h4]:font-semibold [&>h3]:md:!grid-column-auto [&>h3~*:not(h3)]:md:col-start-2 [&>h3~*:not(h3)]:md:col-end-3 [&>h3~*:not(h3)]:md:!grid-column-auto`}
+              md:grid md:grid-cols-[1fr_2fr] md:gap-8 *:md:grid-col-span-full [&>h3]:md:col-start-1 [&>h3]:md:col-end-2 [&>h3]:text-[clamp(28px,10vw,52px)] [&>h3]:font-secondary [&>h3]:leading-[1.2] [&>h3]:font-semibold [&>h3]:mt-3.5 [&>h4]:mt-3 md:[&>h3]:mt-0 lg:[&>h4]:mt-0 md:[&>p:not(:first-child)]:mt-0 [&>p]:md:text-body/95 [&>p:not(:first-child)]:mt-2.5 [&>h3]:md:pr-6 [&>h3:md:self-start [&>h4]:text-[clamp(22px,10vw,28px)] [&>h4]:leading-[1.2] [&>h4]:font-semibold [&>h3]:md:!grid-column-auto [&>h3~*:not(h3)]:md:col-start-2 [&>h3~*:not(h3)]:md:col-end-3 [&>h3~*:not(h3)]:md:!grid-column-auto`}
             dangerouslySetInnerHTML={{ __html: content.page_description }}
           />
         )}

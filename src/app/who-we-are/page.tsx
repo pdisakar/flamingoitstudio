@@ -95,7 +95,7 @@ const page = () => {
   return (
     <div className="common-box overflow-hidden ">
       <div className="container">
-        <div className="about-us-section grid grid-cols-4 gap-6">
+        <div className="common-box pt-0 about-us-section grid grid-cols-4 gap-6">
           <div className="founded-container col-span-4 md:col-span-1">
             <ul className="flex items-center [&>li:not(:first-child)]:-ml-3">
               {owners.map(owner => (
