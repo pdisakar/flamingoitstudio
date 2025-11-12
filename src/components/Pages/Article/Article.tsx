@@ -8,6 +8,7 @@ const Article = ({ data }: any) => {
   const content = data?.content;
   const children = content?.children;
   const breadcrumbs = data?.breadcrumbs?.[0];
+  console.log(data);
 
   if (children && children.length > 0) {
     return (
@@ -94,9 +95,12 @@ const Article = ({ data }: any) => {
             <h1 dangerouslySetInnerHTML={{ __html: content?.page_title }} />
           </div>
         </div>
-
         {content?.page_description && (
-          <div dangerouslySetInnerHTML={{ __html: content.page_description }} />
+          <div
+            className={`
+              md:grid md:grid-cols-[1fr_2fr] md:gap-8 *:md:grid-col-span-full [&>h3]:md:col-start-1 [&>h3]:md:col-end-2 [&>h3]:text-[clamp(28px,10vw,52px)] [&>h3]:font-secondary [&>h3]:leading-[1.2] [&>h3]:font-semibold [&>h3]:mt-3.5 [&>h4]:mt-3 [&>p]:md:text-body/95 [&>p:not(:first-child)]:mt-2.5 [&>h3]:md:pr-6 [&>h3:md:self-start [&>h4]:text-[clamp(22px,10vw,28px)] [&>h4]:leading-[1.2] [&>h4]:font-semibold [&>h3]:md:!grid-column-auto [&>h3~*:not(h3)]:md:col-start-2 [&>h3~*:not(h3)]:md:col-end-3 [&>h3~*:not(h3)]:md:!grid-column-auto`}
+            dangerouslySetInnerHTML={{ __html: content.page_description }}
+          />
         )}
       </div>
     </div>

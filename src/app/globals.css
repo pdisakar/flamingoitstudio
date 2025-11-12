@@ -130,3 +130,7 @@ h1.hero-title {
     }
   }
 }
+
+@utility grid-col-span-full {
+  grid-column: 1 / -1;
+}
