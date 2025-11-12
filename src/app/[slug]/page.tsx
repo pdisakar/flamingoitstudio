@@ -1,5 +1,5 @@
 import Article from '@/components/Pages/Article/Article';
-import Blog from '@/components/Pages/Blog/page';
+import Blog from '@/components/Pages/Blog/Blog';
 import { getArticle } from '@/services/network_requests';
 
 export default async function Page(props: {

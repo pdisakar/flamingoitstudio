@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 const mobileMenuItems = [
   { title: 'Services', href: 'services' },
   { title: 'Who We Are', href: 'who-we-are' },
-  { title: 'Our Works', href: 'our-work' },
+  { title: 'Our Works', href: 'our-works' },
   { title: 'Blogs', href: 'blogs' },
 ];
 
