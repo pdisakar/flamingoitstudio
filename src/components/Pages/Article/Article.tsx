@@ -88,9 +88,13 @@ const Article = ({ data }: any) => {
   return (
     <div className="common-box">
       <div className="container">
-        <Breadcrumb items={breadcrumbs || []} />
+        <div className="title-section">
+          <Breadcrumb items={breadcrumbs || []} />
+          <div className="article-title mt-6">
+            <h1 dangerouslySetInnerHTML={{ __html: content?.page_title }} />
+          </div>
+        </div>
 
-        <h1>{content?.page_title}</h1>
         {content?.page_description && (
           <div dangerouslySetInnerHTML={{ __html: content.page_description }} />
         )}
