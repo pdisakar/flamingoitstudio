@@ -8,7 +8,7 @@ const mobileMenuItems = [
   { title: 'Services', href: 'services' },
   { title: 'Who We Are', href: 'who-we-are' },
   { title: 'Our Works', href: 'our-works' },
-  { title: 'Blogs', href: 'blogs' },
+  { title: 'Blog', href: 'blog' },
 ];
 
 const Header = () => {

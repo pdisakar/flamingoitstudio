@@ -12,9 +12,6 @@ import { getGlobalData } from '@/services/network_requests';
 
 export default async function Home() {
   const data = await Promise.all([getGlobalData()]);
-
-  console.log(data);
-
   return (
     <main>
       <Herosection />

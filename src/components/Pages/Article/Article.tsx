@@ -3,19 +3,20 @@ import Link from 'next/link';
 import Statistics from '@/components/Statistics/Statistics';
 import Letstalk from '@/components/Letstalk/Letstalk';
 import Breadcrumb from '@/components/Breadcrumb/Breadcrumb';
+import Image from 'next/image';
+import { IMAGE_URL } from '@/lib/constants';
 
 const Article = ({ data }: any) => {
   const content = data?.content;
   const children = content?.children;
   const breadcrumbs = data?.breadcrumbs?.[0];
-  console.log(data);
 
   if (children && children.length > 0) {
     return (
       <div className="container">
         <div className="common-box page-title">
           <h1 className="max-w-[1231px]">Web Development Case Study</h1>
-          <article className="[&>p]:mt-7 [&>p:first-child]:mt-0 mt-8 md:mt-12 lg:mt-16">
+          <article className="[&>p]:mt-7 [&>p:first-child]:mt-0 mt-8 md:mt-10 lg:mt-12">
             <p>
               At Flamingo IT Studio, we’re proud to present a showcase of the
               web development solutions we’ve crafted for clients across
@@ -56,7 +57,7 @@ const Article = ({ data }: any) => {
         <div className="common-box pt-0">
           <div className="page-title">
             <h1 className="max-w-[1231px]">Web Development Portfolio</h1>
-            <p className="[&>p]:mt-7 [&>p:first-child]:mt-0 mt-8 md:mt-12 lg:mt-16">
+            <p className="[&>p]:mt-7 [&>p:first-child]:mt-0 mt-8 md:mt-10 lg:mt-12">
               Step into the world of real results with Flamingo IT Studio’s Web
               Development Case Studies. Each project highlights how strategic
               thinking, innovative technology, and a user-first approach come
@@ -70,12 +71,29 @@ const Article = ({ data }: any) => {
         </div>
         <ul className="out-projects common-box pt-0 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {children.map((child: any) => (
-            <li key={child.id}>
-              <h2 className="text-lg font-semibold">
-                <Link href={`/${child.urlinfo?.url_slug || child.url_title}`}>
-                  {child.url_title}
+            <li
+              key={child.id}
+              className="article-card group">
+              <figure className=" image-slot aspect-600/505">
+                <Link href={`/${child.urlinfo?.url_slug}`}>
+                  <Image
+                    src={`${IMAGE_URL}${child?.featured?.full_path}`}
+                    alt={child?.url_title}
+                    width={600}
+                    height={505}
+                    sizes="(min-width: 600px) 50vw, 600px"
+                    className="object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out"
+                    loading="lazy"
+                  />
                 </Link>
-              </h2>
+              </figure>
+              <figcaption className=" pt-4">
+                <h2 className="text-lg font-semibold group-hover:text-primary">
+                  <Link href={`/${child.urlinfo?.url_slug}`}>
+                    {child.url_title}
+                  </Link>
+                </h2>
+              </figcaption>
             </li>
           ))}
         </ul>
@@ -97,8 +115,7 @@ const Article = ({ data }: any) => {
         </div>
         {content?.page_description && (
           <div
-            className={`
-              md:grid md:grid-cols-[1fr_2fr] md:gap-8 *:md:grid-col-span-full [&>h3]:md:col-start-1 [&>h3]:md:col-end-2 [&>h3]:text-[clamp(28px,10vw,52px)] [&>h3]:font-secondary [&>h3]:leading-[1.2] [&>h3]:font-semibold [&>h3]:mt-3.5 [&>h4]:mt-3 md:[&>h3]:mt-0 lg:[&>h4]:mt-0 md:[&>p:not(:first-child)]:mt-0 [&>p]:md:text-body/95 [&>p:not(:first-child)]:mt-2.5 [&>h3]:md:pr-6 [&>h3:md:self-start [&>h4]:text-[clamp(22px,10vw,28px)] [&>h4]:leading-[1.2] [&>h4]:font-semibold [&>h3]:md:!grid-column-auto [&>h3~*:not(h3)]:md:col-start-2 [&>h3~*:not(h3)]:md:col-end-3 [&>h3~*:not(h3)]:md:!grid-column-auto`}
+            className={`md:grid md:grid-cols-[1fr_2fr] md:gap-8 *:md:grid-col-span-full [&>h3]:md:col-start-1 [&>h3]:md:col-end-2 [&>h3]:text-[clamp(28px,10vw,52px)] [&>h3]:font-secondary [&>h3]:leading-[1.2] [&>h3]:font-semibold  [&>h3]:mt-3.5 [&>h4]:mt-3 md:[&>h3]:mt-0 lg:[&>h4]:mt-0 md:[&>p:not(:first-child)]:mt-0 [&>p]:md:text-body/95 [&>p:not(:first-child)]:mt-2.5 [&>h3]:md:pr-6 [&>h3:md:self-start [&>h4]:text-[clamp(22px,10vw,28px)] [&>h4]:leading-[1.2] [&>h4]:font-semibold [&>h3]:md:!grid-column-auto [&>h3~*:not(h3)]:md:col-start-2 [&>h3~*:not(h3)]:md:col-end-3 [&>h3~*:not(h3)]:md:!grid-column-auto`}
             dangerouslySetInnerHTML={{ __html: content.page_description }}
           />
         )}
