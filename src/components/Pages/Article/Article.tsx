@@ -87,9 +87,11 @@ const Article = ({ data }: any) => {
                   />
                 </Link>
               </figure>
-              <figcaption className=" pt-4">
-                <h2 className="text-lg font-semibold group-hover:text-primary">
+
+              <figcaption className="pt-4">
+                <h2 className="text-[28px] font-medium group-hover:text-primary transition-transform duration-300 ease-in-out">
                   <Link href={`/${child.urlinfo?.url_slug}`}>
+                    {' '}
                     {child.url_title}
                   </Link>
                 </h2>
