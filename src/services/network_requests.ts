@@ -336,6 +336,7 @@ interface ArticleResponse {
 export async function getArticle(query: string) {
   const result = await fetchApiData<ArticleResponse>(`/content/${query}`);
   if ('error' in result) return result;
+  console.log(result);
 
   const { page_type, content } = result.data.data;
 

@@ -6,51 +6,46 @@ import Blogcard from '@/components/Cards/Blogcard/Blogcard';
 
 export default function BlogList({ data }: { data: any }) {
   const [posts, setPosts] = useState<any[]>(data.listcontent);
-  const [categoryLimit, setCategoryLimit] = useState<number>(9);
-  const [hasMore, setHasMore] = useState<boolean>(true);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  // Initialize checkboxes state
-  const [checkboxes, setCheckboxes] = useState<any[]>(
-    data.blog_categories.map((itm: any) => ({
-      value: itm.urlinfo.url_slug,
-      label: itm.title,
-      id: itm.id,
+  const [checkboxes, setCheckboxes] = useState(
+    data.blog_categories.map((cat: any) => ({
+      slug: cat.urlinfo.url_slug,
       checked: false,
-      slug: itm.urlinfo.url_slug,
     }))
   );
 
-  // Derive selected categories from checkboxes
   const categories = useMemo(
-    () => checkboxes.filter((itm: any) => itm.checked).map((a: any) => a.slug),
-    [checkboxes]
+    () => checkboxes.filter((c: any) => c.checked).map((c: any) => c.slug),
+    [checkboxes]   
   );
 
-  const fetchPosts = async (reset: boolean = false) => {
+  const fetchPosts = async (reset = false) => {
     try {
       setLoading(true);
       const start = reset ? 0 : posts.length;
       const limit = reset ? 12 : 6;
 
-      const response = await fetch(
+      const res = await fetch(
         `${PRODUCTION_SERVER}/allblogs?_start=${start}&_limit=${limit}&_categories="${categories.join(
           ','
         )}"`,
         {
-          method: 'GET',
           headers: {
             'Content-Type': 'application/json',
             sitekey: SITE_KEY,
           },
         }
       );
-      const data = await response.json();
-      const newPosts = data.data.content;
-      setPosts(prevPosts => (reset ? newPosts : [...prevPosts, ...newPosts]));
+
+      const json = await res.json();
+      const newPosts = json.data.content || [];
+
+      setPosts(reset ? newPosts : [...posts, ...newPosts]);
       setHasMore(newPosts.length > 0);
-    } catch (error) {
-      console.error('Error fetching posts:', error);
+    } catch (err) {
+      console.error('Error fetching posts:', err);
       setHasMore(false);
     } finally {
       setLoading(false);
@@ -63,34 +58,28 @@ export default function BlogList({ data }: { data: any }) {
 
   return (
     <div className="container common-box pt-0">
-      <div className="blog-list">
-        <ul className="grid lg:grid-cols-3 sm:grid-cols-2 gap-6">
-          {posts.map((itm: any, idx: number) => (
-            <li
-              className="col-lg-4 col-md-6"
-              key={idx}>
-              <Blogcard blogData={itm} />
-            </li>
-          ))}
-        </ul>
-        {hasMore && (
-          <div className="load-more load-more-btn mt-6">
-            <button
-              type="button"
-              className="btn text-base border-0 font-bold rounded-lg px-5 py-2.5 block btn-primary"
-              onClick={() => fetchPosts(false)}
-              disabled={loading}>
-              {loading ? 'Loading...' : 'Load More'}
-            </button>
-          </div>
-        )}
+      <ul className="grid lg:grid-cols-3 sm:grid-cols-2 gap-6">
+        {posts.map((post: any, idx: number) => (
+          <li key={idx}>
+            <Blogcard blogData={post} />
+          </li>
+        ))}
+      </ul>
 
-        {!hasMore && (
-          <div className="text-center py-4 text-headings">
-            <p>No more posts to load.</p>
-          </div>
-        )}
-      </div>
+      {hasMore ? (
+        <div className="mt-6 text-center">
+          <button
+            className="btn text-base font-bold rounded-lg px-5 py-2.5 btn-primary"
+            onClick={() => fetchPosts(false)}
+            disabled={loading}>
+            {loading ? 'Loading...' : 'Load More'}
+          </button>
+        </div>
+      ) : (
+        <div className="text-center py-4 text-headings">
+          <p>No more posts to load.</p>
+        </div>
+      )}
     </div>
   );
 }

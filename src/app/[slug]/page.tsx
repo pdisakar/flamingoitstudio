@@ -1,24 +1,18 @@
 import Article from '@/components/Pages/Article/Article';
-import Blog from '@/components/Pages/Blog/Blog';
 import { getArticle } from '@/services/network_requests';
 
 export default async function Page(props: {
   params: Promise<{ slug: string }>;
 }) {
-  const params = await props.params;
-  const { slug } = params;
-  const data = await getArticle(slug);
+  const params: any = await props.params;
+  const { slug }: any = params;
 
-  const { page_type } = data;
+  const data: any = await getArticle(slug);
+  const { page_type }: any = data;
 
-  const PageComponent = {
-    blog: Blog,
+  const PageComponent: any = {
     article: Article,
   }[page_type];
 
-  return (
-    <>
-      <PageComponent data={data as any} />
-    </>
-  );
+  return <PageComponent data={data as any} />;
 }
