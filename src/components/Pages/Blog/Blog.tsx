@@ -1,7 +1,11 @@
+"use client"
 import React from 'react';
 
-const Blog = () => {
-  return <div>this is details Blog</div>;
+
+const Blog = (data: any) => {
+  console.log(data);
+
+  return <div className='container common-box'>this is details Blog</div>;
 };
 
 export default Blog;

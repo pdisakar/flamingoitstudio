@@ -4,6 +4,8 @@ import logo from '../../public/logo.svg';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
+import { BASE_URL } from '@/lib/constants';
+
 const mobileMenuItems = [
   { title: 'Services', href: 'services' },
   { title: 'Who We Are', href: 'who-we-are' },
@@ -46,7 +48,7 @@ const Header = () => {
             {mobileMenuItems.map((item, index) => (
               <li key={index}>
                 <Link
-                  href={item.href}
+                  href={`${BASE_URL}${item.href}`}
                   onClick={() => setIsMobileMenuOpen(false)}>
                   {item.title}
                 </Link>
