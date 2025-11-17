@@ -9,11 +9,13 @@ import Projectanalysis from '@/components/Projectanalysis/Projectanalysis';
 import Testimonials from '@/components/Testimonials/Testimonials';
 
 import { getHomeData } from '@/services/network_requests';
+import type { BlogPost } from '@/types/types';
 
 export default async function Home() {
-  const data = await Promise.all([getHomeData()]);
+  const [homeData] = await Promise.all([getHomeData()]);
 
-  const featuredblog = data[0].featured_blogs;
+  const featuredblog: BlogPost[] =
+    homeData && 'featured_blogs' in homeData ? homeData.featured_blogs : [];
 
   return (
     <main>
@@ -51,7 +53,7 @@ export default async function Home() {
       </section>
       <section className="common-box pt-0 overflow-hidden">
         <div className="container">
-          <Featurednews data = {featuredblog} />
+          <Featurednews data={featuredblog} />
         </div>
       </section>
 
