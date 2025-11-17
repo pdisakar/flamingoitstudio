@@ -8,9 +8,11 @@ import parse, {
   domToReact,
   HTMLReactParserOptions,
   Element,
+  DOMNode,
 } from 'html-react-parser';
-import { DOMNode } from 'htmlparser2';
 import { BlogBySlugData, BlogPageData } from '@/types/types';
+
+type ParsedNode = string | ReturnType<typeof parse>;
 
 interface TOCItem {
   id: string;
@@ -33,9 +35,7 @@ const Blog = ({ data }: BlogProps) => {
     },
   ];
 
-  const [parsedContent, setParsedContent] = useState<DOMNode[] | string | null>(
-    null
-  );
+  const [parsedContent, setParsedContent] = useState<ParsedNode | null>(null);
   const [toc, setToc] = useState<TOCItem[]>([]);
 
   useEffect(() => {
@@ -47,11 +47,18 @@ const Blog = ({ data }: BlogProps) => {
     const getPlainTextFromChildren = (children: DOMNode[]): string => {
       return children
         .map(child => {
-          if ('type' in child && child.type === 'text') {
-            return 'data' in child ? ((child as { data?: string }).data ?? '') : '';
+          if (
+            'type' in (child as any) &&
+            (child as any).type === 'text' &&
+            'data' in (child as any) &&
+            typeof (child as any).data === 'string'
+          ) {
+            return (child as any).data as string;
           }
-          if ('children' in child && child.children) {
-            return getPlainTextFromChildren(child.children as DOMNode[]);
+          if ('children' in child && Array.isArray((child as any).children)) {
+            return getPlainTextFromChildren(
+              (child as any).children as DOMNode[]
+            );
           }
           return '';
         })
@@ -59,14 +66,16 @@ const Blog = ({ data }: BlogProps) => {
     };
 
     const options: HTMLReactParserOptions = {
-      replace: (domNode: DOMNode) => {
-        if (domNode.type === 'tag') {
+      replace: domNode => {
+        if ((domNode as Element).type === 'tag') {
           const node = domNode as Element;
 
           if (node.name === 'h2') {
             h2Count++;
             const id = `h2-${h2Count}`;
-            const text = getPlainTextFromChildren(node.children as DOMNode[]);
+            const text = getPlainTextFromChildren(
+              ((node.children ?? []) as unknown as DOMNode[]) ?? []
+            );
 
             tempToc.push({
               id,
@@ -76,7 +85,9 @@ const Blog = ({ data }: BlogProps) => {
             });
 
             return (
-              <h2 id={id}>{domToReact(node.children as DOMNode[], options)}</h2>
+              <h2 id={id}>
+                {domToReact(node.children as unknown as DOMNode[], options)}
+              </h2>
             );
           }
 
@@ -85,7 +96,9 @@ const Blog = ({ data }: BlogProps) => {
             if (lastH2) {
               const h3Index = lastH2.children.length + 1;
               const id = `h2-${h2Count}-h3-${h3Index}`;
-              const text = getPlainTextFromChildren(node.children as DOMNode[]);
+              const text = getPlainTextFromChildren(
+                ((node.children ?? []) as unknown as DOMNode[]) ?? []
+              );
 
               lastH2.children.push({
                 id,
@@ -96,7 +109,7 @@ const Blog = ({ data }: BlogProps) => {
 
               return (
                 <h3 id={id}>
-                  {domToReact(node.children as DOMNode[], options)}
+                  {domToReact(node.children as unknown as DOMNode[], options)}
                 </h3>
               );
             }
@@ -106,7 +119,7 @@ const Blog = ({ data }: BlogProps) => {
     };
 
     const contentWithIds = parse(blogdata.content, options);
-    setParsedContent(contentWithIds);
+    setParsedContent(contentWithIds as ParsedNode);
     setToc(tempToc);
   }, [blogdata?.content]);
 
@@ -182,7 +195,7 @@ const Blog = ({ data }: BlogProps) => {
         <article
           className="[&>h2]:text-[clamp(28px,5vw,32px)] [&>h2]:leading-[1.3] [&>h2]:font-semibold [&>h2]:font-secondary [&>h2:not(:first-child)]:mt-6 [&>h3]:text-[clamp(20px,5vw,24px)] [&>h3]:font-semibold [&>h3]:font-secondary [&>h3:not(:first-child)]:mt-3 [&>p:not(:first-child)]:mt-2
           [&>ul>li]:relative [&>ul>li]:pl-7 [&>ul>li]:before:h-4 [&>ul>li]:before:w-4 [&>ul>li]:before:top-2.5 [&>ul>li]:before:absolute [&>ul>li]:before:left-0 [&>ul>li]:before:content-[''] [&>ul>li]:before:bg-point [&>ul>li]:before:bg-no-repeat [&>ul>li]:before:bg-cover [&>ul>li>p]:mb-3">
-          {parsedContent}
+          {parsedContent as unknown as React.ReactNode}
         </article>
       )}
     </div>
