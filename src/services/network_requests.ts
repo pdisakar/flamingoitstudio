@@ -21,7 +21,9 @@ const limitChildren = <T extends NodeWithChildren | NodeWithChildren[]>(
   data: T,
   limit: number
 ): T => {
-  function traverseAndAdjust(node: NodeWithChildren | NodeWithChildren[]): void {
+  function traverseAndAdjust(
+    node: NodeWithChildren | NodeWithChildren[]
+  ): void {
     if (Array.isArray(node)) {
       node.forEach(item => traverseAndAdjust(item));
     } else if (typeof node === 'object' && node !== null) {
@@ -306,12 +308,14 @@ export async function getGlobalData(): Promise<GlobalData | { error: string }> {
 
   const globalData: GlobalData = {
     ...sourceData,
-    ...(sourceData.main_menu && mainMenu && {
-      main_menu: { menu: mainMenu },
-    }),
-    ...(sourceData.footer_menu && footerMenu && {
-      footer_menu: { menu: footerMenu },
-    }),
+    ...(sourceData.main_menu &&
+      mainMenu && {
+        main_menu: { menu: mainMenu },
+      }),
+    ...(sourceData.footer_menu &&
+      footerMenu && {
+        footer_menu: { menu: footerMenu },
+      }),
   };
   return globalData;
 }
@@ -375,43 +379,47 @@ export async function getArticle(query: string) {
   const { page_type, content } = result.data.data;
 
   if (page_type === 'blog') {
-    const { tocHtml, updatedHtml } = generateTableOfContents(content.content);
+    const rawContent =
+      typeof (content as UnknownRecord).content === 'string'
+        ? ((content as UnknownRecord).content as string)
+        : '';
+    const { tocHtml, updatedHtml } = generateTableOfContents(rawContent);
     return {
       ...result.data.data,
       featured_packages: null,
       featured_categories: null,
       content: { ...result.data.data.content, content: null },
-      ...(result.data.data.next_blog &&
-        result.data.data.next_blog !== '' && {
-          next_blog: {
-            title: result.data.data.next_blog.title,
-            urlinfo: result.data.data.next_blog.urlinfo,
-            authors: result.data.data.next_blog.authors,
-            blog_date: result.data.data.next_blog.blog_date,
-            featured: result.data.data.next_blog.featured,
-          },
-        }),
-      ...(result.data.data.previous_blog &&
-        result.data.data.previous_blog !== '' && {
-          previous_blog: {
-            title: result.data.data.previous_blog.title,
-            urlinfo: result.data.data.previous_blog.urlinfo,
-            authors: result.data.data.previous_blog.authors,
-            blog_date: result.data.data.previous_blog.blog_date,
-            featured: result.data.data.previous_blog.featured,
-          },
-        }),
+      ...(result.data.data.next_blog && {
+        next_blog: {
+          title: result.data.data.next_blog.title,
+          urlinfo: result.data.data.next_blog.urlinfo,
+          authors: result.data.data.next_blog.authors,
+          blog_date: result.data.data.next_blog.blog_date,
+          featured: result.data.data.next_blog.featured,
+        },
+      }),
+      ...(result.data.data.previous_blog && {
+        previous_blog: {
+          title: result.data.data.previous_blog.title,
+          urlinfo: result.data.data.previous_blog.urlinfo,
+          authors: result.data.data.previous_blog.authors,
+          blog_date: result.data.data.previous_blog.blog_date,
+          featured: result.data.data.previous_blog.featured,
+        },
+      }),
       tocHtml,
       updatedHtml,
     };
   } else if (page_type === 'package') {
     const { package_extra_faqs, group_faqs, package_trip_info } = content;
 
-    const elements = package_extra_faqs ? parseHTML(package_extra_faqs) : [];
+    const elements = package_extra_faqs
+      ? parseHTML(package_extra_faqs as string)
+      : [];
     let extra_faqs = elements.length > 0 ? buildFAQsFromElements(elements) : [];
 
     const package_trip_info_elements = package_trip_info
-      ? parseHTML(package_trip_info)
+      ? parseHTML(package_trip_info as string)
       : [];
     let good_to_know =
       package_trip_info_elements.length > 0
@@ -599,7 +607,7 @@ export async function getTeamMember(query: string) {
 }
 
 interface PackageByCategoryResponse {
-  content: PackageItem[];
+  content: UnknownRecord[];
 }
 
 // export async function getPackageByCategory(query: string) {

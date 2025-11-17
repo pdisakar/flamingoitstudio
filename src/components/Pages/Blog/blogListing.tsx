@@ -56,7 +56,6 @@ export default function BlogList({ data }: BlogListProps) {
       setPosts(reset ? newPosts : [...posts, ...newPosts]);
       setHasMore(newPosts.length > 0);
     } catch (err) {
-      console.error('Error fetching posts:', err);
       setHasMore(false);
     } finally {
       setLoading(false);
