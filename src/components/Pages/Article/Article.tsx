@@ -87,7 +87,7 @@ const Article = ({ data }: ArticleProps) => {
                 <Link href={`/${child.urlinfo?.url_slug}`}>
                   <Image
                     src={`${IMAGE_URL}${child?.featured?.full_path}`}
-                    alt={child?.url_title}
+                    alt={child?.url_title ?? ''}
                     width={600}
                     height={505}
                     sizes="(min-width: 600px) 50vw, 600px"
@@ -121,7 +121,9 @@ const Article = ({ data }: ArticleProps) => {
         <div className="title-section">
           <Breadcrumb items={breadcrumbs || []} />
           <div className="article-title mt-6">
-            <h1 dangerouslySetInnerHTML={{ __html: content?.page_title }} />
+            <h1
+              dangerouslySetInnerHTML={{ __html: content?.page_title ?? '' }}
+            />
           </div>
         </div>
         {content?.page_description && (

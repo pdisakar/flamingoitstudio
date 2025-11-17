@@ -8,8 +8,22 @@ import Ownerwords from '@/components/Ownerwords/Ownerwords';
 import Projectanalysis from '@/components/Projectanalysis/Projectanalysis';
 import Testimonials from '@/components/Testimonials/Testimonials';
 
-import { getHomeData } from '@/services/network_requests';
+import { getHomeData, getStaticRoutes } from '@/services/network_requests';
 import type { BlogPost } from '@/types/types';
+
+export async function generateStaticParams() {
+  const data = await getStaticRoutes();
+
+  if (!Array.isArray(data)) {
+    return [];
+  }
+
+  const excludedSlugs = ['blog', 'contact-us', 'who-we-are'];
+
+  return data
+    .filter(({ slug }) => !excludedSlugs.includes(slug))
+    .map(({ slug }) => ({ slug }));
+}
 
 export default async function Home() {
   const [homeData] = await Promise.all([getHomeData()]);
