@@ -22,6 +22,7 @@
   --background-image-hero-bg-2: url('/backgrounds/hero-bg-2.svg');
   --background-image-hero-bg: url('/backgrounds/hero-bg.svg');
   --background-image-footerbg: url('/backgrounds/footerbg.svg');
+  --background-image-point: url('/backgrounds/point.svg');
 }
 
 ::selection {
@@ -141,6 +142,7 @@ h1.hero-title {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
+  margin: 14px 0px;
   table {
     width: 100% !important;
     max-width: 100% !important;
@@ -148,7 +150,7 @@ h1.hero-title {
     background-color: transparent;
     border-collapse: collapse;
     th {
-      @apply font-semibold;
+      @apply font-medium text-left;
     }
     td,
     th {
