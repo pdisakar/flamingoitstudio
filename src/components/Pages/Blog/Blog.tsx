@@ -10,6 +10,7 @@ import parse, {
   Element,
 } from 'html-react-parser';
 import { DOMNode } from 'htmlparser2';
+import { BlogBySlugData, BlogPageData } from '@/types/types';
 
 interface TOCItem {
   id: string;
@@ -19,19 +20,7 @@ interface TOCItem {
 }
 
 interface BlogProps {
-  data: {
-    content: {
-      title: string;
-      abstract?: string;
-      banner?: {
-        full_path: string;
-      };
-      urlinfo: {
-        url_slug: string;
-      };
-      content: string;
-    };
-  };
+  data: BlogPageData | BlogBySlugData;
 }
 
 const Blog = ({ data }: BlogProps) => {
@@ -55,11 +44,15 @@ const Blog = ({ data }: BlogProps) => {
     const tempToc: TOCItem[] = [];
     let h2Count = 0;
 
-    const getPlainTextFromChildren = (children: any[]): string => {
+    const getPlainTextFromChildren = (children: DOMNode[]): string => {
       return children
-        .map((child: any) => {
-          if (child.type === 'text') return child.data;
-          if (child.children) return getPlainTextFromChildren(child.children);
+        .map(child => {
+          if ('type' in child && child.type === 'text') {
+            return 'data' in child ? ((child as { data?: string }).data ?? '') : '';
+          }
+          if ('children' in child && child.children) {
+            return getPlainTextFromChildren(child.children as DOMNode[]);
+          }
           return '';
         })
         .join('');
@@ -73,7 +66,7 @@ const Blog = ({ data }: BlogProps) => {
           if (node.name === 'h2') {
             h2Count++;
             const id = `h2-${h2Count}`;
-            const text = getPlainTextFromChildren(node.children as any[]);
+            const text = getPlainTextFromChildren(node.children as DOMNode[]);
 
             tempToc.push({
               id,
@@ -92,7 +85,7 @@ const Blog = ({ data }: BlogProps) => {
             if (lastH2) {
               const h3Index = lastH2.children.length + 1;
               const id = `h2-${h2Count}-h3-${h3Index}`;
-              const text = getPlainTextFromChildren(node.children as any[]);
+              const text = getPlainTextFromChildren(node.children as DOMNode[]);
 
               lastH2.children.push({
                 id,

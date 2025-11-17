@@ -1,13 +1,16 @@
 import Blog from '@/components/Pages/Blog/Blog';
-import { getBlogBySlug } from '@/services/network_requests';
+import getBlogBySlug from '@/services/network_requests';
+import { BlogBySlugData } from '@/types/types';
 
-export default async function Page(props: {
+interface BlogSlugPageProps {
   params: Promise<{ slug: string }>;
-}) {
-  const params: any = await props.params;
-  const { slug }: any = params;
+}
 
-  const data: any = await getBlogBySlug(slug);
+export default async function Page({ params }: BlogSlugPageProps) {
+  const resolvedParams = await params;
+  const { slug } = resolvedParams;
 
-  return <Blog data={data as any} />;
+  const data = (await getBlogBySlug(slug)) as BlogBySlugData;
+
+  return <Blog data={data} />;
 }

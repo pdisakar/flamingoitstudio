@@ -14,8 +14,8 @@ const techWeUse = [
 const Herosection = () => {
   return (
     <section className="common-box relative overflow-hidden">
-      <HeroLeftBackground />
-      <HeroRightBackground />
+      {HeroLeftBackground && <HeroLeftBackground />}
+      {HeroRightBackground && <HeroRightBackground />}
       <div className="container">
         <div className="quick-service flex flex-wrap items-center gap-2.5 md:gap-6 lg:gap-12">
           <span className="uppercase text-xl">

@@ -2,10 +2,14 @@ import Link from 'next/link';
 import { BLOG_BASE_URL, IMAGE_URL } from '@/lib/constants';
 import Image from 'next/image';
 import dayjs from 'dayjs';
+import { BlogPost } from '@/types/types';
 
-const Blogcard = (blogData: any) => {
-  const { title, featured, blog_date, urlinfo, categories, authors } =
-    blogData.blogData;
+interface BlogCardProps {
+  blogData: BlogPost;
+}
+
+const Blogcard = ({ blogData }: BlogCardProps) => {
+  const { title, featured, blog_date, urlinfo } = blogData;
 
   return (
     <div className="blog-item group">

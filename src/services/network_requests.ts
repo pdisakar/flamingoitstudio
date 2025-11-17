@@ -1,5 +1,12 @@
 import { PRODUCTION_SERVER } from '../lib/constants';
 import { parse, HTMLElement } from 'node-html-parser';
+import { BlogPost } from '@/types/types';
+
+type UnknownRecord = Record<string, unknown>;
+
+type NodeWithChildren = UnknownRecord & {
+  children?: NodeWithChildren[];
+};
 
 // Define API Headers for all requests
 
@@ -10,11 +17,11 @@ const API_HEADERS: HeadersInit = {
 
 // --- Helper Functions ---
 
-const limitChildren = <T extends { children?: any[] } | any[]>(
+const limitChildren = <T extends NodeWithChildren | NodeWithChildren[]>(
   data: T,
   limit: number
 ): T => {
-  function traverseAndAdjust(node: any): void {
+  function traverseAndAdjust(node: NodeWithChildren | NodeWithChildren[]): void {
     if (Array.isArray(node)) {
       node.forEach(item => traverseAndAdjust(item));
     } else if (typeof node === 'object' && node !== null) {
@@ -31,9 +38,9 @@ const limitChildren = <T extends { children?: any[] } | any[]>(
   return data;
 };
 
-const parseHTML = (htmlString: string): any[] => {
+const parseHTML = (htmlString: string): HTMLElement[] => {
   const root = parse(htmlString);
-  return root.childNodes as any[];
+  return root.childNodes as HTMLElement[];
 };
 
 // --- Interfaces for FAQ Structure ---
@@ -49,7 +56,7 @@ interface FAQCategory {
   faq: FAQItem[];
 }
 
-const buildFAQsFromElements = (elements: any[]): FAQCategory[] => {
+const buildFAQsFromElements = (elements: HTMLElement[]): FAQCategory[] => {
   const result: FAQCategory[] = [];
   let currentTitle = 'FAQs'; // Default title when no H3 tags are found
   let currentFaqs: FAQItem[] = [];
@@ -121,7 +128,7 @@ type GoodToKnowBlock = {
   content: string;
 };
 
-const goodToKnowJSON = (elements: any[]): GoodToKnowBlock[] => {
+const goodToKnowJSON = (elements: HTMLElement[]): GoodToKnowBlock[] => {
   const result: GoodToKnowBlock[] = [];
   let currentBlock: GoodToKnowBlock | null = null;
   let idCounter = 1;
@@ -274,29 +281,53 @@ interface ApiResponse<T> {
   data: T;
 }
 
-export async function getGlobalData(): Promise<any> {
+interface GlobalData extends UnknownRecord {
+  main_menu?: {
+    menu: NodeWithChildren[];
+  };
+  footer_menu?: {
+    menu: NodeWithChildren[];
+  };
+}
+
+export async function getGlobalData(): Promise<GlobalData | { error: string }> {
   const result = await fetchApiData<ApiResponse<GlobalData>>('/global', [
     'global',
   ]);
   if ('error' in result) return result;
 
-  const globalData = {
-    ...result.data.data,
-    main_menu: {
-      menu: limitChildren((result.data.data as any).main_menu.menu, 11),
-    },
-    footer_menu: {
-      menu: limitChildren((result.data.data as any).footer_menu.menu, 12),
-    },
+  const sourceData = result.data.data;
+  const mainMenu = sourceData.main_menu?.menu
+    ? limitChildren(sourceData.main_menu.menu, 11)
+    : undefined;
+  const footerMenu = sourceData.footer_menu?.menu
+    ? limitChildren(sourceData.footer_menu.menu, 12)
+    : undefined;
+
+  const globalData: GlobalData = {
+    ...sourceData,
+    ...(sourceData.main_menu && mainMenu && {
+      main_menu: { menu: mainMenu },
+    }),
+    ...(sourceData.footer_menu && footerMenu && {
+      footer_menu: { menu: footerMenu },
+    }),
   };
   return globalData;
 }
 
 interface OptionsDataResponse {
-  data: any; // Define a more specific interface if possible
+  data: UnknownRecord;
 }
 
-export async function getOptionsData() {
+interface HomePageData extends UnknownRecord {
+  featured_packages?: UnknownRecord[];
+  featured_blogs: BlogPost[];
+}
+
+export async function getOptionsData(): Promise<
+  UnknownRecord | { error: string }
+> {
   const result = await fetchApiData<OptionsDataResponse>('/options', [
     'options',
   ]);
@@ -304,29 +335,32 @@ export async function getOptionsData() {
   return result.data.data;
 }
 
-export async function getHomeData(): Promise<any> {
+export async function getHomeData(): Promise<HomePageData | { error: string }> {
   const result = await fetchApiData<ApiResponse<HomePageData>>('/homepage', [
     'homepage',
   ]);
   if ('error' in result) return result;
 
-  const homeContent = {
-    ...result.data.data,
-    featured_packages: (result.data as any)?.data?.featured_packages?.slice(
-      0,
-      5
-    ),
-
-    featured_blogs: (result.data.data as any).featured_blogs.slice(0, 4),
+  const sourceData = result.data.data;
+  const featuredPackages = Array.isArray(sourceData.featured_packages)
+    ? sourceData.featured_packages.slice(0, 5)
+    : undefined;
+  const featuredBlogs = Array.isArray(sourceData.featured_blogs)
+    ? sourceData.featured_blogs.slice(0, 4)
+    : [];
+  const homeContent: HomePageData = {
+    ...sourceData,
+    ...(featuredPackages && { featured_packages: featuredPackages }),
+    featured_blogs: featuredBlogs,
   };
   return homeContent;
 }
 
 interface ArticleContent {
   page_type: string;
-  content: any;
-  next_blog?: any;
-  previous_blog?: any;
+  content: UnknownRecord;
+  next_blog?: BlogPost | null;
+  previous_blog?: BlogPost | null;
 }
 
 interface ArticleResponse {
@@ -386,7 +420,7 @@ export async function getArticle(query: string) {
     const groupFaqs = (
       Array.isArray(group_faqs)
         ? group_faqs
-        : Object.values(group_faqs as Record<string, any>)
+        : Object.values(group_faqs as Record<string, FAQCategory>)
     ) as FAQCategory[];
 
     if (extra_faqs.length > 0) {
@@ -414,7 +448,7 @@ export async function getArticle(query: string) {
 
 interface PackageContent {
   package_extra_faqs?: string | null;
-  group_faqs: Record<string, any> | any[]; // Assuming it's often an object converted to array
+  group_faqs: FAQCategory[] | Record<string, FAQCategory>;
   package_trip_info?: string | null;
   // Add other fields from content
 }
@@ -447,7 +481,7 @@ interface PackageResponse {
 //   const groupFaqs = (
 //     Array.isArray(group_faqs)
 //       ? group_faqs
-//       : Object.values(group_faqs as Record<string, any>)
+//       : Object.values(group_faqs as Record<string, unknown>)
 //   ) as FAQCategory[];
 
 //   if (extra_faqs.length > 0) {
@@ -471,7 +505,7 @@ interface PackageResponse {
 // }
 
 // interface ItineraryResponse {
-//   data: any;
+//   data: UnknownRecord;
 // }
 
 // export async function getItineraryByPackageId(id: string | number) {
@@ -481,7 +515,7 @@ interface PackageResponse {
 // }
 
 interface PageContentResponse {
-  data: any;
+  data: UnknownRecord;
 }
 
 export async function getContactPage() {
@@ -497,13 +531,21 @@ export async function getAboutPage() {
     `/pagecontent/aboutpage`
   );
   if ('error' in result) return result;
-  const data = {
-    ...result.data.data,
-    featured_members: (result.data as any)?.data?.featured_members?.slice(0, 4),
-    featured_reviews: (result.data as any)?.data?.featured_reviews?.slice(0, 4),
+  const sourceData = result.data.data as UnknownRecord & {
+    featured_members?: UnknownRecord[];
+    featured_reviews?: UnknownRecord[];
   };
-
-  return data;
+  const featuredMembers = Array.isArray(sourceData.featured_members)
+    ? sourceData.featured_members.slice(0, 4)
+    : undefined;
+  const featuredReviews = Array.isArray(sourceData.featured_reviews)
+    ? sourceData.featured_reviews.slice(0, 4)
+    : undefined;
+  return {
+    ...sourceData,
+    ...(featuredMembers && { featured_members: featuredMembers }),
+    ...(featuredReviews && { featured_reviews: featuredReviews }),
+  };
 }
 
 // export async function getCostomizePage() {
@@ -545,7 +587,7 @@ export async function getBlogPage() {
 }
 
 interface TeamMemberResponse {
-  data: any; // Define specific interface
+  data: UnknownRecord;
 }
 
 export async function getTeamMember(query: string) {
@@ -601,13 +643,15 @@ export async function getIpAddress() {
     }
 
     return await res.text();
-  } catch (err: any) {
-    return { error: err.message || 'An unknown error occurred' };
+  } catch (err: unknown) {
+    const message =
+      err instanceof Error ? err.message : 'An unknown error occurred';
+    return { error: message };
   }
 }
 
 interface TestimonialResponse {
-  data: any; // Define specific interface
+  data: UnknownRecord;
 }
 
 export async function getTestimonialBySlug(query: string) {
@@ -619,11 +663,11 @@ export async function getTestimonialBySlug(query: string) {
 }
 
 interface StoryPageContent {
-  data: any;
+  data: UnknownRecord;
 }
 
 interface StoryListContent {
-  data: any[];
+  data: UnknownRecord[];
 }
 
 export async function getStoryPage() {
@@ -643,7 +687,7 @@ export async function getStoryPage() {
 }
 
 interface StoryBySlugResponse {
-  data: any;
+  data: UnknownRecord;
 }
 
 export async function getStoryBySlug(query: string) {
@@ -655,7 +699,7 @@ export async function getStoryBySlug(query: string) {
 }
 
 interface AuthorBySlugResponse {
-  data: any; // Define specific interface
+  data: UnknownRecord;
 }
 
 export async function getAuthorBySlug(query: string) {
@@ -667,7 +711,7 @@ export async function getAuthorBySlug(query: string) {
 }
 
 interface SiteMapResponse {
-  data: any;
+  data: UnknownRecord;
 }
 
 export async function getSiteMap() {
@@ -684,8 +728,8 @@ export async function getImageSiteMap() {
 }
 
 interface BlogContent {
-  next_blog: any | null;
-  previous_blog: any | null;
+  next_blog: BlogPost | null;
+  previous_blog: BlogPost | null;
   content: {
     content: string;
   };
@@ -729,7 +773,7 @@ export async function getStaticRoutes() {
 }
 
 interface AllAuthorsResponse {
-  data: any[];
+  data: UnknownRecord[];
 }
 
 export async function getAllBlogAuthor() {
@@ -739,7 +783,7 @@ export async function getAllBlogAuthor() {
 }
 
 interface AllMembersResponse {
-  data: any[];
+  data: UnknownRecord[];
 }
 
 export async function getAllMembers() {
@@ -749,7 +793,7 @@ export async function getAllMembers() {
 }
 
 interface AllTestimonialsResponse {
-  data: any[];
+  data: UnknownRecord[];
 }
 
 export async function getAllTestimonials() {
@@ -761,7 +805,7 @@ export async function getAllTestimonials() {
 }
 
 interface AllBlogsResponse {
-  data: any[];
+  data: UnknownRecord[];
 }
 
 export async function getAllBlog() {
@@ -769,3 +813,6 @@ export async function getAllBlog() {
   if ('error' in result) return result;
   return result.data;
 }
+
+// Default export kept minimal to avoid changing existing named exports.
+export default getBlogBySlug;

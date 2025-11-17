@@ -1,6 +1,6 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import {
   useEffect,
   useState,
@@ -117,7 +117,7 @@ export const OwnerWordsLines = ({ lines, className }: OwnerWordsLinesProps) => {
 // Our Clients animated rotator
 interface ClientItem {
   id: number | string;
-  img: any;
+  img: string | StaticImageData;
   alt: string;
 }
 
@@ -288,7 +288,7 @@ export const OurServicesFaqs = () => {
 
 // Project Analysis animations
 interface ProjectAnalysisImageProps {
-  image: any;
+  image: string | StaticImageData;
   alt: string;
   keyValue: number | string;
   className?: string;

@@ -5,13 +5,22 @@ import Letstalk from '@/components/Letstalk/Letstalk';
 import Breadcrumb from '@/components/Breadcrumb/Breadcrumb';
 import Image from 'next/image';
 import { IMAGE_URL } from '@/lib/constants';
+import {
+  ArticleApiResponse,
+  ArticleChild,
+  BreadcrumbItem,
+} from '@/types/types';
 
-const Article = ({ data }: any) => {
+interface ArticleProps {
+  data: ArticleApiResponse;
+}
+
+const Article = ({ data }: ArticleProps) => {
   const content = data?.content;
-  const children = content?.children;
-  const breadcrumbs = data?.breadcrumbs?.[0];
+  const children = content?.children ?? [];
+  const breadcrumbs: BreadcrumbItem[] | undefined = data?.breadcrumbs?.[0];
 
-  if (children && children.length > 0) {
+  if (children.length > 0) {
     return (
       <div className="container">
         <div className="common-box page-title">
@@ -70,7 +79,7 @@ const Article = ({ data }: any) => {
           </div>
         </div>
         <ul className="out-projects common-box pt-0 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {children.map((child: any) => (
+          {children.map((child: ArticleChild) => (
             <li
               key={child.id}
               className="article-card group">

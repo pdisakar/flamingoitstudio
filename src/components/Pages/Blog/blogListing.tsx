@@ -3,22 +3,33 @@
 import { useEffect, useState, useMemo } from 'react';
 import { PRODUCTION_SERVER, SITE_KEY } from '@/lib/constants';
 import Blogcard from '@/components/Cards/Blogcard/Blogcard';
+import {
+  BlogListingData,
+  BlogPost,
+  OptionCheckbox,
+  BlogCategory,
+} from '@/types/types';
 
-export default function BlogList({ data }: { data: any }) {
-  const [posts, setPosts] = useState<any[]>(data.listcontent);
+interface BlogListProps {
+  data: BlogListingData;
+}
+
+export default function BlogList({ data }: BlogListProps) {
+  const [posts, setPosts] = useState<BlogPost[]>(data.listcontent);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
 
-  const [checkboxes, setCheckboxes] = useState(
-    data.blog_categories.map((cat: any) => ({
-      slug: cat.urlinfo.url_slug,
+  const [checkboxes, setCheckboxes] = useState<OptionCheckbox[]>(
+    data.blog_categories.map((cat: BlogCategory) => ({
+      title: cat.title ?? cat.slug,
+      slug: cat.urlinfo?.url_slug ?? cat.slug,
       checked: false,
     }))
   );
 
   const categories = useMemo(
-    () => checkboxes.filter((c: any) => c.checked).map((c: any) => c.slug),
-    [checkboxes]   
+    () => checkboxes.filter(c => c.checked).map(c => c.slug),
+    [checkboxes]
   );
 
   const fetchPosts = async (reset = false) => {
@@ -39,7 +50,7 @@ export default function BlogList({ data }: { data: any }) {
         }
       );
 
-      const json = await res.json();
+      const json = (await res.json()) as { data: { content?: BlogPost[] } };
       const newPosts = json.data.content || [];
 
       setPosts(reset ? newPosts : [...posts, ...newPosts]);
@@ -59,7 +70,7 @@ export default function BlogList({ data }: { data: any }) {
   return (
     <div className="container common-box pt-0">
       <ul className="grid lg:grid-cols-3 sm:grid-cols-2 gap-6">
-        {posts.map((post: any, idx: number) => (
+        {posts.map((post: BlogPost, idx: number) => (
           <li key={idx}>
             <Blogcard blogData={post} />
           </li>

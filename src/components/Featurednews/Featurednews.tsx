@@ -1,7 +1,12 @@
 import Link from 'next/link';
 import Blogcard from '../Cards/Blogcard/Blogcard';
+import { BlogPost } from '@/types/types';
 
-const Featurednews = ({ data }: { data: any[] }) => {
+interface FeaturedNewsProps {
+  data: BlogPost[];
+}
+
+const Featurednews = ({ data }: FeaturedNewsProps) => {
   return (
     <section className="common-box pt-0">
       <div className="container mx-auto px-4">

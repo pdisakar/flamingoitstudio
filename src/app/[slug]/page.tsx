@@ -1,18 +1,24 @@
+import type { ComponentType } from 'react';
 import Article from '@/components/Pages/Article/Article';
 import { getArticle } from '@/services/network_requests';
+import { ArticleApiResponse } from '@/types/types';
 
-export default async function Page(props: {
+interface SlugPageProps {
   params: Promise<{ slug: string }>;
-}) {
-  const params: any = await props.params;
-  const { slug }: any = params;
+}
 
-  const data: any = await getArticle(slug);
-  const { page_type }: any = data;
+type ArticleComponent = ComponentType<{ data: ArticleApiResponse }>;
 
-  const PageComponent: any = {
+export default async function Page({ params }: SlugPageProps) {
+  const resolvedParams = await params;
+  const { slug } = resolvedParams;
+
+  const data = (await getArticle(slug)) as ArticleApiResponse;
+  const PageComponentMap: Record<string, ArticleComponent> = {
     article: Article,
-  }[page_type];
+  };
 
-  return <PageComponent data={data as any} />;
+  const PageComponent = PageComponentMap[data.page_type] ?? Article;
+
+  return <PageComponent data={data} />;
 }
