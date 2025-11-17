@@ -8,11 +8,12 @@ import Ownerwords from '@/components/Ownerwords/Ownerwords';
 import Projectanalysis from '@/components/Projectanalysis/Projectanalysis';
 import Testimonials from '@/components/Testimonials/Testimonials';
 
-import { getGlobalData, getHomeData } from '@/services/network_requests';
+import { getHomeData } from '@/services/network_requests';
 
 export default async function Home() {
-  const data = await Promise.all([getGlobalData()]);
-  console.log(data);
+  const data = await Promise.all([getHomeData()]);
+
+  const featuredblog = data[0].featured_blogs;
 
   return (
     <main>
@@ -48,8 +49,11 @@ export default async function Home() {
           <Testimonials />
         </div>
       </section>
-
-      <Featurednews />
+      <section className="common-box pt-0 overflow-hidden">
+        <div className="container">
+          <Featurednews data = {featuredblog} />
+        </div>
+      </section>
 
       <section className="common-box pt-0 overflow-hidden">
         <div className="container">

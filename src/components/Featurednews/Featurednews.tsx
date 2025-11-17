@@ -1,5 +1,7 @@
 import Link from 'next/link';
-const Featurednews = () => {
+import Blogcard from '../Cards/Blogcard/Blogcard';
+
+const Featurednews = ({ data }: { data: any[] }) => {
   return (
     <section className="common-box pt-0">
       <div className="container mx-auto px-4">
@@ -19,6 +21,15 @@ const Featurednews = () => {
               </svg>
             </div>
           </Link>
+        </div>
+        <div className="featured blog">
+          <ul className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {data.map((item, index) => (
+              <li key={index}>
+                <Blogcard blogData={item} />
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
