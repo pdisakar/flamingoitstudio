@@ -134,3 +134,30 @@ h1.hero-title {
 @utility grid-col-span-full {
   grid-column: 1 / -1;
 }
+
+.responsive-table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  table {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    background-color: transparent;
+    border-collapse: collapse;
+    th {
+      @apply font-semibold;
+    }
+    td,
+    th {
+      @apply p-2.5 border border-primary/10;
+      width: auto !important;
+    }
+  }
+
+  tr:nth-of-type(odd) {
+    @apply border-y border-primary/10 bg-primary/5;
+  }
+}

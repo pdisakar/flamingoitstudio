@@ -16,6 +16,8 @@ const formatSlug = (slug: string) => {
 const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
   const breadcrumbItems = [{ title: 'Home', slug: '/' }, ...(items || [])];
 
+  
+
   return (
     <nav
       className="text-base mb-4"
