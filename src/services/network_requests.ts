@@ -379,6 +379,7 @@ export async function getArticle(query: string) {
   const { page_type, content } = result.data.data;
 
   if (page_type === 'blog') {
+    // ... (no changes in this block)
     const rawContent =
       typeof (content as UnknownRecord).content === 'string'
         ? ((content as UnknownRecord).content as string)
@@ -411,6 +412,7 @@ export async function getArticle(query: string) {
       updatedHtml,
     };
   } else if (page_type === 'package') {
+    // ... (no changes in this block)
     const { package_extra_faqs, group_faqs, package_trip_info } = content;
 
     const elements = package_extra_faqs
@@ -450,7 +452,38 @@ export async function getArticle(query: string) {
       },
     };
   } else {
-    return result.data.data;
+    const { content } = result.data.data;
+    const structuredContent: { title: string; body: string }[] = [];
+
+    if (!content.children || content.children.length === 0) {
+      const htmlContent = content.page_description;
+
+      if (htmlContent && typeof htmlContent === 'string') {
+        const sections = htmlContent.split(/(?=<h2>)/);
+
+        for (const section of sections) {
+          if (!section.trim()) continue;
+          const h2Match = section.match(/<h2>(.*?)<\/h2>/);
+
+          if (h2Match) {
+            const title = h2Match[1];
+            const body = section.substring(h2Match[0].length).trim();
+
+            structuredContent.push({ title, body });
+          } else {
+            structuredContent.push({ title: '', body: section.trim() });
+          }
+        }
+      }
+    }
+
+    return {
+      ...result.data.data,
+      content: {
+        ...result.data.data.content,
+        page_description_structured: structuredContent,
+      },
+    };
   }
 }
 
