@@ -1,7 +1,12 @@
 import Letstalk from '@/components/Letstalk/Letstalk';
 import React from 'react';
+import { getGlobalData } from '@/services/network_requests';
 
-const page = () => {
+export default async function page() {
+  const [globalData] = await Promise.all([getGlobalData()]);
+
+  console.log(globalData);
+
   return (
     <div className="container">
       <div className="common-box">
@@ -80,7 +85,82 @@ const page = () => {
               </button>
             </form>
           </div>
-          <div className="contact-details">this is details</div>
+          <div className="contact-details space-y-6 md:space-y-8 lg:space-y-10">
+            <div className="chat-with-us">
+              <h3 className=" text-2xl">Chat With Us</h3>
+              <p className="mt-2">Speak to our friendly team via live chat</p>
+              <div className="email-us">
+                <a
+                  href={`mailto:${globalData?.email}`}
+                  className=" underline text-base flex gap-3 items-center">
+                  <svg
+                    width={18}
+                    height={18}
+                    fill="currentColor">
+                    <use xlinkHref="/icons.svg#contact-us-email" />
+                  </svg>
+                  Shoot us an email
+                </a>
+              </div>
+              <div className="whatsapp-us mt-2">
+                <a
+                  href={`https://wa.me/${globalData?.mobile}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className=" underline text-base flex gap-3 items-center">
+                  <svg
+                    width={18}
+                    height={18}
+                    fill="currentColor">
+                    <use xlinkHref="/icons.svg#contact-us-whatsapp" />
+                  </svg>
+                  Message on WhatsApp
+                </a>
+              </div>
+            </div>
+
+            <div className="make-a-call">
+              <h3 className=" text-2xl">Make a Call</h3>
+              <p className="mt-2">Call us Sun-Sat from 10 AM to 5 PM</p>
+
+              <div className="call-us">
+                <a
+                  href={`tel:${globalData.mobile}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className=" underline text-base flex gap-3 items-center">
+                  <svg
+                    width={18}
+                    height={18}
+                    fill="currentColor">
+                    <use xlinkHref="/icons.svg#contact-us-call" />
+                  </svg>
+                  +977 {globalData.mobile}
+                </a>
+              </div>
+            </div>
+
+            <div className="visit-us">
+              <h3 className=" text-2xl">Visit Us </h3>
+              <p className="mt-2">Talk with us in person at our Location</p>
+
+              <div className="our-location">
+                <a
+                  href={'#'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className=" underline text-base flex gap-3 items-center">
+                  <svg
+                    width={18}
+                    height={18}
+                    fill="currentColor">
+                    <use xlinkHref="/icons.svg#contact-us-location" />
+                  </svg>{' '}
+                  {globalData?.address}
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div className="common-box pt-0">
@@ -88,6 +168,4 @@ const page = () => {
       </div>
     </div>
   );
-};
-
-export default page;
+}

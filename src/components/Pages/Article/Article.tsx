@@ -1,4 +1,3 @@
-'use client';
 import Link from 'next/link';
 import Statistics from '@/components/Statistics/Statistics';
 import Letstalk from '@/components/Letstalk/Letstalk';
