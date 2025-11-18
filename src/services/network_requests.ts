@@ -455,7 +455,16 @@ export async function getArticle(query: string) {
     const { content } = result.data.data;
     const structuredContent: { title: string; body: string }[] = [];
 
-    if (!content.children || content.children.length === 0) {
+    // `content` is an untyped object coming from the API.
+    // Safely check whether it has a non‑empty `children` array before
+    // attempting to build the structured description.
+    const hasChildrenArray =
+      typeof content === 'object' &&
+      content !== null &&
+      Array.isArray((content as { children?: unknown }).children) &&
+      ((content as { children?: unknown }).children as unknown[]).length > 0;
+
+    if (!hasChildrenArray) {
       const htmlContent = content.page_description;
 
       if (htmlContent && typeof htmlContent === 'string') {

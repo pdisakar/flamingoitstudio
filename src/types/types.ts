@@ -68,6 +68,9 @@ export interface ArticleContent {
   page_title?: string;
   page_description?: string;
   children?: ArticleChild[];
+  // Structured representation of `page_description` generated on the server
+  // (see `getArticle` in `network_requests.ts`).
+  page_description_structured?: { title: string; body: string }[];
   [key: string]: unknown;
 }
 

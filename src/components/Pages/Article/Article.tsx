@@ -128,16 +128,36 @@ const Article = ({ data }: ArticleProps) => {
             />
           </div>
         </div>
-        {content?.page_description_structured?.map((section, index) => (
-          <div key={index}>
-            {section.title && (
-              <h2 dangerouslySetInnerHTML={{ __html: section.title }} />
-            )}
-
-            <article
-              className="title"
-              dangerouslySetInnerHTML={{ __html: section.body }}
-            />
+        {(
+          (content?.page_description_structured ?? []) as {
+            title: string;
+            body: string;
+          }[]
+        ).map((section: { title: string; body: string }, index: number) => (
+          <div
+            className={`about-this-article [&>h2]:text-[clamp(28px,8vw,52px)] [&>h2]:font-secondary [&>h2]:leading-[1.2] [&>h2]:font-semibold [&>article>h3]:text-[clamp(22px,10vw,28px)] [&>article>h3]:leading-[1.2] [&>article>h3]:font-semibold [&>article>h3]:mt-4 [&>article>p:not(:first-child)]:mt-4 [&>article>p]:md:text-body/95 [&>p:not(:first-child)]:mt-2.5 lg:grid lg:grid-cols-3 lg:gap-4  [&>article>ul>li]:relative [&>article>ul>li]:pl-7 [&>article>ul>li]:before:h-4 [&>article>ul>li]:before:w-4 [&>article>ul>li]:before:top-2.5 [&>article>ul>li]:before:absolute [&>article>ul>li]:before:left-0 [&>article>ul>li]:before:content-[''] [&>article>ul>li]:before:bg-point [&>article>ul>li]:before:bg-no-repeat [&>article>ul>li]:before:bg-cover [&>article>ul>li>p]:mb-3 ${
+              section.title && section.body
+                ? 'mt-20 pt-20 border-t border-white/50'
+                : ''
+            }`}
+            key={index}>
+            {section.title && section.body ? (
+              <>
+                <h2
+                  className="col-span-1 lg:sticky lg:top-4 lg:self-start"
+                  dangerouslySetInnerHTML={{ __html: section.title }}
+                />
+                <article
+                  className="col-span-2"
+                  dangerouslySetInnerHTML={{ __html: section.body }}
+                />
+              </>
+            ) : section.body ? (
+              <article
+                className="col-span-3"
+                dangerouslySetInnerHTML={{ __html: section.body }}
+              />
+            ) : null}
           </div>
         ))}
       </div>
