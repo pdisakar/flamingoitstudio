@@ -89,9 +89,13 @@ const Footer = () => {
                 alt="Flamingo It Studio"
               />
             </div>
-            <ul className=' flex gap-6'>
-              <li>Terms of Service</li>
-              <li>Privacy Policy</li>
+            <ul className=" flex gap-6 [&>li]:hover:text-primary [&>li]:hover:underline">
+              <li>
+                <Link href={'/terms-conditions'}>Terms of Service</Link>
+              </li>
+              <li>
+                <Link href={'/terms-conditions'}>Privacy Policy</Link>
+              </li>
             </ul>
           </div>
         </div>
