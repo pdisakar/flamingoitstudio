@@ -1,7 +1,68 @@
+import type { Metadata } from 'next';
 import Letstalk from '@/components/Letstalk/Letstalk';
 import React from 'react';
-import { getGlobalData } from '@/services/network_requests';
+import { getGlobalData, getContactPage } from '@/services/network_requests';
 import type { GlobalData } from '@/services/network_requests';
+import type { BannerAsset, UrlInfo } from '@/types/types';
+import { IMAGE_URL } from '@/lib/constants';
+
+type ContactPageMetaContent = {
+  meta: {
+    meta_title: string;
+    meta_description: string;
+  };
+  urlinfo: UrlInfo & {
+    canonical?: string;
+  };
+  banner?: BannerAsset;
+};
+
+type ContactPagePayload = {
+  pagecontent: ContactPageMetaContent;
+};
+
+const isContactPagePayload = (data: unknown): data is ContactPagePayload => {
+  if (typeof data !== 'object' || data === null) return false;
+  const candidate = data as Partial<ContactPagePayload>;
+  return (
+    typeof candidate.pagecontent === 'object' &&
+    candidate.pagecontent !== null &&
+    candidate.pagecontent.meta !== undefined &&
+    candidate.pagecontent.urlinfo !== undefined
+  );
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await getContactPage();
+  if (!isContactPagePayload(data)) {
+    return {};
+  }
+  const { pagecontent } = data;
+  const canonicalUrl = `${process.env.CANONICAL_BASE}${pagecontent.urlinfo.url_slug}`;
+
+  return {
+    title: pagecontent.meta.meta_title,
+    description: pagecontent.meta.meta_description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: pagecontent.meta.meta_title,
+      description: pagecontent.meta.meta_description,
+      url: canonicalUrl,
+      images: pagecontent.banner
+        ? [
+            {
+              url: IMAGE_URL + pagecontent.banner.full_path,
+              width: 1650,
+              height: 600,
+              alt: pagecontent.meta.meta_title,
+            },
+          ]
+        : [],
+    },
+  };
+}
 
 export default async function page() {
   const [globalDataResult] = await Promise.all([getGlobalData()]);

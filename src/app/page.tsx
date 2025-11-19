@@ -25,6 +25,23 @@ export async function generateStaticParams() {
     .map(({ slug }) => ({ slug }));
 }
 
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await getHomeData();
+  const pagecontent = data?.pagecontent;
+  return {
+    title: pagecontent?.meta?.meta_title,
+    description: pagecontent?.meta?.meta_description,
+    alternates: {
+      canonical: process.env.CANONICAL_BASE,
+    },
+    openGraph: {
+      title: pagecontent?.meta?.meta_title,
+      description: pagecontent?.meta?.meta_description,
+      url: process.env.CANONICAL_BASE,
+    },
+  };
+}
+
 export default async function Home() {
   const [homeData] = await Promise.all([getHomeData()]);
 

@@ -1,5 +1,8 @@
 export interface UrlInfo {
   url_slug: string;
+  canonical?: string;
+  url_index?: number;
+  [key: string]: unknown;
 }
 
 export interface ImageAsset {
@@ -36,6 +39,10 @@ export interface BlogPost {
   banner?: BannerAsset;
   featured?: ImageAsset;
   urlinfo: UrlInfo;
+  meta?: {
+    meta_title: string;
+    meta_description: string;
+  };
   url_title?: string;
   authors?: BlogAuthor[];
   categories?: BlogCategory[];
@@ -70,6 +77,14 @@ export interface ArticleContent {
   page_abstract?: string;
   title?: string;
   banner?: BannerAsset;
+  meta?: {
+    meta_title: string;
+    meta_description: string;
+  };
+  urlinfo?: UrlInfo & {
+    canonical?: string;
+    url_index?: number;
+  };
   children?: ArticleChild[];
   // Structured representation of `page_description` generated on the server
   // (see `getArticle` in `network_requests.ts`).

@@ -91,6 +91,14 @@ const how_we_stand_out = [
   },
 ];
 
+export function generateMetadata() {
+  return {
+    title: 'Flamingo IT Studio | Innovative Web Development in Nepal & Beyond',
+    description:
+      'Flamingo IT Studio crafts high-performance websites and digital solutions with precision, creativity, and strategy. Trusted globally for innovative, scalable web development.',
+  };
+}
+
 const page = () => {
   return (
     <div className="common-box overflow-hidden ">
