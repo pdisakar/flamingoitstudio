@@ -283,13 +283,16 @@ interface ApiResponse<T> {
   data: T;
 }
 
-interface GlobalData extends UnknownRecord {
+export interface GlobalData extends UnknownRecord {
   main_menu?: {
     menu: NodeWithChildren[];
   };
   footer_menu?: {
     menu: NodeWithChildren[];
   };
+  email?: string;
+  mobile?: string;
+  address?: string;
 }
 
 export async function getGlobalData(): Promise<GlobalData | { error: string }> {

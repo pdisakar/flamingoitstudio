@@ -30,12 +30,22 @@ interface TextNode {
   data: string;
 }
 
+type ParsableChildren = DOMNode[] | ChildNode[] | Element['children'];
+
 interface ElementNode {
   type: 'tag' | 'script' | 'style';
-  children?: DOMNode[];
+  children?: ParsableChildren;
 }
 
 type TypedDOMNode = TextNode | ElementNode | DOMNode;
+
+const normalizeChildren = (children?: ParsableChildren): DOMNode[] => {
+  if (!children) return [];
+  if (Array.isArray(children)) {
+    return children.map(child => child as DOMNode);
+  }
+  return [];
+};
 
 const getPlainTextFromChildren = (children: DOMNode[]): string => {
   return children
@@ -44,8 +54,13 @@ const getPlainTextFromChildren = (children: DOMNode[]): string => {
       if ('type' in typedChild && typedChild.type === 'text' && 'data' in typedChild && typeof typedChild.data === 'string') {
         return typedChild.data;
       }
-      if ('children' in typedChild && Array.isArray(typedChild.children)) {
-        return getPlainTextFromChildren(typedChild.children);
+      if ('children' in typedChild) {
+        const nestedChildren = normalizeChildren(
+          (typedChild as { children?: ParsableChildren }).children
+        );
+        if (nestedChildren.length > 0) {
+          return getPlainTextFromChildren(nestedChildren);
+        }
       }
       return '';
     })
@@ -86,7 +101,8 @@ const Blog = ({ data }: BlogProps) => {
         if (node.name === 'h2') {
           h2Count++;
           const id = `h2-${h2Count}`;
-          const text = getPlainTextFromChildren(node.children as DOMNode[]);
+          const nodeChildren = normalizeChildren(node.children);
+          const text = getPlainTextFromChildren(nodeChildren);
 
           tempToc.push({
             id,
@@ -95,9 +111,7 @@ const Blog = ({ data }: BlogProps) => {
             children: [],
           });
 
-          return (
-            <h2 id={id}>{domToReact(node.children as DOMNode[], options)}</h2>
-          );
+          return <h2 id={id}>{domToReact(nodeChildren, options)}</h2>;
         }
 
         if (node.name === 'h3') {
@@ -105,7 +119,8 @@ const Blog = ({ data }: BlogProps) => {
           if (lastH2) {
             const h3Index = lastH2.children.length + 1;
             const id = `h2-${h2Count}-h3-${h3Index}`;
-            const text = getPlainTextFromChildren(node.children as DOMNode[]);
+            const nodeChildren = normalizeChildren(node.children);
+            const text = getPlainTextFromChildren(nodeChildren);
 
             lastH2.children.push({
               id,
@@ -114,9 +129,7 @@ const Blog = ({ data }: BlogProps) => {
               children: [],
             });
 
-            return (
-              <h3 id={id}>{domToReact(node.children as DOMNode[], options)}</h3>
-            );
+            return <h3 id={id}>{domToReact(nodeChildren, options)}</h3>;
           }
         }
       },

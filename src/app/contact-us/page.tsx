@@ -1,11 +1,17 @@
 import Letstalk from '@/components/Letstalk/Letstalk';
 import React from 'react';
 import { getGlobalData } from '@/services/network_requests';
+import type { GlobalData } from '@/services/network_requests';
 
 export default async function page() {
-  const [globalData] = await Promise.all([getGlobalData()]);
+  const [globalDataResult] = await Promise.all([getGlobalData()]);
 
-  console.log(globalData);
+  let globalData: GlobalData | undefined;
+  if ('error' in globalDataResult) {
+    console.error('Failed to fetch global data:', globalDataResult.error);
+  } else {
+    globalData = globalDataResult;
+  }
 
   return (
     <div className="container">
@@ -91,7 +97,7 @@ export default async function page() {
               <p className="mt-2">Speak to our friendly team via live chat</p>
               <div className="email-us">
                 <a
-                  href={`mailto:${globalData?.email}`}
+                  href={`mailto:${globalData?.email ?? ''}`}
                   className=" underline text-base flex gap-3 items-center">
                   <svg
                     width={18}
@@ -104,7 +110,7 @@ export default async function page() {
               </div>
               <div className="whatsapp-us mt-2">
                 <a
-                  href={`https://wa.me/${globalData?.mobile}`}
+                  href={`https://wa.me/${globalData?.mobile ?? ''}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className=" underline text-base flex gap-3 items-center">
@@ -125,7 +131,7 @@ export default async function page() {
 
               <div className="call-us">
                 <a
-                  href={`tel:${globalData.mobile}`}
+                  href={`tel:${globalData?.mobile ?? ''}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className=" underline text-base flex gap-3 items-center">
@@ -135,7 +141,7 @@ export default async function page() {
                     fill="currentColor">
                     <use xlinkHref="/icons.svg#contact-us-call" />
                   </svg>
-                  +977 {globalData.mobile}
+                  +977 {globalData?.mobile ?? ''}
                 </a>
               </div>
             </div>
@@ -156,7 +162,7 @@ export default async function page() {
                     fill="currentColor">
                     <use xlinkHref="/icons.svg#contact-us-location" />
                   </svg>{' '}
-                  {globalData?.address}
+                  {globalData?.address ?? ''}
                 </a>
               </div>
             </div>
