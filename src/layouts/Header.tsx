@@ -4,18 +4,21 @@ import logo from '../../public/logo.svg';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
-import { BASE_URL } from '@/lib/constants';
+type NodeWithChildren = Record<string, unknown> & {
+  children?: NodeWithChildren[];
+};
 
-const mobileMenuItems = [
-  { title: 'Services', href: 'services' },
-  { title: 'Who We Are', href: 'who-we-are' },
-  { title: 'Our Works', href: 'our-works' },
-  { title: 'Blog', href: 'blog' },
-];
+interface HeaderProps {
+  data?: {
+    menu?: NodeWithChildren[];
+  };
+}
 
-const Header = () => {
+const Header = ({ data }: HeaderProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [animateCloseBtn, setAnimateCloseBtn] = useState(false);
+
+  const mobileMenuItems = data?.menu || [];
 
   useEffect(() => {
     if (isMobileMenuOpen) {
@@ -43,22 +46,32 @@ const Header = () => {
             />
           </Link>
         </div>
+
         <nav>
-          <ul className="flex items-center [&>li]:px-9 text-2xl font-medium">
-            {mobileMenuItems.map((item, index) => (
-              <li key={index}>
-                <Link
-                  href={`${BASE_URL}${item.href}`}
-                  onClick={() => setIsMobileMenuOpen(false)}>
-                  {item.title}
-                </Link>
-              </li>
-            ))}
+          <ul className="flex items-center [&>li]:px-9 text-2xl font-medium capitalize">
+            {mobileMenuItems.map(item => {
+              const id = item.id as number | string | undefined;
+              const itemSlug = item.item_slug as string | undefined;
+              const itemTitle = item.item_title as string | undefined;
+              
+              if (!id || !itemSlug || !itemTitle) return null;
+              
+              return (
+                <li key={id}>
+                  <Link
+                    href={`/${itemSlug}`}
+                    onClick={() => setIsMobileMenuOpen(false)}>
+                    <span dangerouslySetInnerHTML={{ __html: itemTitle }} />
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
+
         <div className="contact-us-btn ">
           <Link
-            href="#"
+            href="/contact-us"
             className="group flex items-center gap-5 bg-primary rounded-full p-1.5 pl-8 text-2xl">
             Let's Start
             <div className="action-btn h-16 w-16 bg-[#993A0A] flex items-center justify-center rounded-full">
@@ -85,6 +98,7 @@ const Header = () => {
             alt="Flamingo It Studio"
           />
         </div>
+
         <button
           className="mobile-menu-button focus:outline-none flex items-center gap-2"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -95,6 +109,7 @@ const Header = () => {
           ) : (
             <span className="text-xl font-medium">Open</span>
           )}
+
           <svg
             className="w-6 h-6 fill-current pointer-events-none"
             viewBox="0 0 16 16"
@@ -127,7 +142,6 @@ const Header = () => {
         </button>
       </div>
 
-      {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div className="mobile-menu-overlay lg:hidden bg-body-bg fixed top-0 left-0 w-full h-full z-40 flex flex-col items-center justify-center">
           <button
@@ -172,16 +186,24 @@ const Header = () => {
             </svg>
           </button>
 
-          <ul className="flex flex-col items-center text-4xl font-medium space-y-8">
-            {mobileMenuItems.map((item, index) => (
-              <li key={index}>
-                <Link
-                  href={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}>
-                  {item.title}
-                </Link>
-              </li>
-            ))}
+          <ul className="flex flex-col items-center text-4xl font-medium space-y-8 capitalize">
+            {mobileMenuItems.map(item => {
+              const id = item.id as number | string | undefined;
+              const itemSlug = item.item_slug as string | undefined;
+              const itemTitle = item.item_title as string | undefined;
+              
+              if (!id || !itemSlug || !itemTitle) return null;
+              
+              return (
+                <li key={id}>
+                  <Link
+                    href={`/${itemSlug}`}
+                    onClick={() => setIsMobileMenuOpen(false)}>
+                    <span dangerouslySetInnerHTML={{ __html: itemTitle }} />
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}

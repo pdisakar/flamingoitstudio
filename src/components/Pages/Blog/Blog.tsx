@@ -25,15 +25,27 @@ interface BlogProps {
   data: BlogPageData | BlogBySlugData;
 }
 
+interface TextNode {
+  type: 'text';
+  data: string;
+}
+
+interface ElementNode {
+  type: 'tag' | 'script' | 'style';
+  children?: DOMNode[];
+}
+
+type TypedDOMNode = TextNode | ElementNode | DOMNode;
+
 const getPlainTextFromChildren = (children: DOMNode[]): string => {
   return children
     .map(child => {
-      const anyChild = child as any;
-      if (anyChild.type === 'text' && typeof anyChild.data === 'string') {
-        return anyChild.data;
+      const typedChild = child as TypedDOMNode;
+      if ('type' in typedChild && typedChild.type === 'text' && 'data' in typedChild && typeof typedChild.data === 'string') {
+        return typedChild.data;
       }
-      if (Array.isArray(anyChild.children)) {
-        return getPlainTextFromChildren(anyChild.children);
+      if ('children' in typedChild && Array.isArray(typedChild.children)) {
+        return getPlainTextFromChildren(typedChild.children);
       }
       return '';
     })

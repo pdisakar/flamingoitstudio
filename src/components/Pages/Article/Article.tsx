@@ -1,4 +1,3 @@
-'use client';
 import Link from 'next/link';
 import Statistics from '@/components/Statistics/Statistics';
 import Letstalk from '@/components/Letstalk/Letstalk';
@@ -19,7 +18,6 @@ interface ArticleProps {
 
 const Article = ({ data }: ArticleProps) => {
   const content = data?.content;
-  console.log(content);
   const children = content?.children ?? [];
   const breadcrumbs: BreadcrumbItem[] | undefined = data?.breadcrumbs?.[0];
 
