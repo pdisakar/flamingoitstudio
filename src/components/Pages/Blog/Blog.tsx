@@ -12,6 +12,7 @@ import parse, {
 } from 'html-react-parser';
 import { BlogBySlugData, BlogPageData } from '@/types/types';
 import Letstalk from '@/components/Letstalk/Letstalk';
+import Pagebanner from '@/components/Pagebanner/Pagebanner';
 
 interface TOCItem {
   id: string;
@@ -137,20 +138,18 @@ const Blog = ({ data }: BlogProps) => {
       </div>
 
       {blogdata.abstract && (
-        <div className="blog-abstract mb-8">{blogdata.abstract}</div>
+        <article
+          className="blog-abstract mb-8"
+          dangerouslySetInnerHTML={{ __html: blogdata.abstract }}
+        />
       )}
 
       {blogdata?.banner && (
-        <div className="banner image-slot aspect-1920/750 rounded-lg mb-8">
-          <Image
-            src={`${IMAGE_URL}${blogdata.banner.full_path}`}
-            alt={blogdata.title}
-            height={750}
-            width={1920}
-            className="object-cover rounded-lg"
-            priority
-          />
-        </div>
+        <Pagebanner
+          classes={'image-slot aspect-1920/750 rounded-lg mb-8'}
+          imagelink={`${blogdata.banner.full_path}`}
+          alt={`${blogdata.title}`}
+        />
       )}
 
       <div className="main-article-container lg:grid lg:grid-cols-10 gap-6">

@@ -5,6 +5,8 @@ import Letstalk from '@/components/Letstalk/Letstalk';
 import Breadcrumb from '@/components/Breadcrumb/Breadcrumb';
 import Image from 'next/image';
 import { IMAGE_URL } from '@/lib/constants';
+import Pagebanner from '@/components/Pagebanner/Pagebanner';
+
 import {
   ArticleApiResponse,
   ArticleChild,
@@ -16,9 +18,8 @@ interface ArticleProps {
 }
 
 const Article = ({ data }: ArticleProps) => {
-  console.log(data);
-
   const content = data?.content;
+  console.log(content);
   const children = content?.children ?? [];
   const breadcrumbs: BreadcrumbItem[] | undefined = data?.breadcrumbs?.[0];
 
@@ -128,6 +129,22 @@ const Article = ({ data }: ArticleProps) => {
             />
           </div>
         </div>
+
+        {typeof content?.page_abstract === 'string' && (
+          <article
+            className="blog-abstract mb-8"
+            dangerouslySetInnerHTML={{ __html: content.page_abstract }}
+          />
+        )}
+
+        {content?.banner ? (
+          <Pagebanner
+            classes={'image-slot aspect-1920/750 rounded-lg mb-8'}
+            imagelink={content.banner.full_path}
+            alt={content.page_title ?? ''}
+          />
+        ) : null}
+
         {(
           (content?.page_description_structured ?? []) as {
             title: string;
